@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Auction state lives in a client-side demo store (src/lib/auction-store.ts); UI reads it via hooks so a server-authoritative WebSocket feed can replace the simulation later without touching pages.
+- AI assistant responses come from a local mock (src/lib/ai-mock.ts) that must never place bids; swap in a real AI call behind the same function.
