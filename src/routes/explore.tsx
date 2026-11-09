@@ -34,7 +34,7 @@ type Filters = {
 };
 const sorts = { ending: "Ending Soon", new: "Newly Listed", low: "Lowest Current Bid", high: "Highest Current Bid", popular: "Most Popular", watched: "Most Watched" } as const;
 
-export function filterRooms(rooms: RoomState[], f: Filters, now: number, watch?: string[]) {
+function filterRooms(rooms: RoomState[], f: Filters, now: number, watch?: string[]) {
   return rooms.filter((r) => {
     if (watch && !watch.includes(r.id)) return false;
     if (f.q && !`${r.title} ${r.category} ${r.location}`.toLowerCase().includes(f.q.toLowerCase())) return false;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ChevronDown, Gavel, MapPin, Maximize2, Pin, Send, ShieldAlert, ShieldCheck, Trophy, Users, X } from "lucide-react";
+import { ArrowLeft, ChevronDown, Gavel, MapPin, Maximize2, Pin, Send, ShieldAlert, ShieldCheck, Trophy, Users } from "lucide-react";
 import { toast } from "sonner";
 import { seedAuctions, fmtFull } from "@/lib/auctions";
 import { MY_HANDLE, placeBid, sendChat, useRoom, useRooms, validateBid, type RoomState } from "@/lib/auction-store";
@@ -280,4 +280,4 @@ function ActivityPanel({ room }: { room: RoomState }) {
   );
 }
 
-export { X };
+
