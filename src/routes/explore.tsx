@@ -7,13 +7,13 @@ import { AuctionCard } from "@/components/auction/bits";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-type Search = { category?: string; watchlist?: boolean; status?: "live" | "upcoming" | "ended" };
+type Search = { category?: string | undefined; watchlist?: boolean | undefined; status?: "live" | "upcoming" | "ended" | undefined };
 
 export const Route = createFileRoute("/explore")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    category: typeof s.category === "string" ? s.category : undefined,
-    watchlist: s.watchlist === true || s.watchlist === "true" ? true : undefined,
-    status: s.status === "live" || s.status === "upcoming" || s.status === "ended" ? s.status : undefined,
+    category: typeof s["category"] === "string" ? s["category"] : undefined,
+    watchlist: s["watchlist"] === true || s["watchlist"] === "true" ? true : undefined,
+    status: s["status"] === "live" || s["status"] === "upcoming" || s["status"] === "ended" ? s["status"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -85,7 +85,7 @@ function Explore() {
   const panel = (
     <div className="space-y-7 text-sm">
       <Group title="Category">{categories.map((c) => <Check key={c.name} label={c.name} on={f.cats.includes(c.name)} onClick={() => toggle("cats", c.name as Category)} />)}</Group>
-      <Group title="Auction status">{["live", "upcoming", "ended"].map((s) => <Check key={s} label={s[0].toUpperCase() + s.slice(1)} on={f.status.includes(s)} onClick={() => toggle("status", s)} />)}</Group>
+      <Group title="Auction status">{["live", "upcoming", "ended"].map((s) => <Check key={s} label={s.charAt(0).toUpperCase() + s.slice(1)} on={f.status.includes(s)} onClick={() => toggle("status", s)} />)}</Group>
       <Group title="Current bid ($)">
         <div className="flex gap-2">
           <input inputMode="numeric" placeholder="Min" value={f.min} onChange={(e) => setF({ ...f, min: e.target.value.replace(/\D/g, "") })} className="h-10 w-full rounded-lg border bg-background px-3 outline-none focus:border-primary" />
@@ -95,7 +95,7 @@ function Explore() {
       <Group title="Location"><input placeholder="City or country" value={f.location} onChange={(e) => setF({ ...f, location: e.target.value })} className="h-10 w-full rounded-lg border bg-background px-3 outline-none focus:border-primary" /></Group>
       <Group title="Condition">{["New", "Excellent", "Very Good", "Good", "Fair"].map((c) => <Check key={c} label={c} on={f.conditions.includes(c)} onClick={() => toggle("conditions", c)} />)}</Group>
       <Group title="Seller type">{["Dealer", "Private"].map((c) => <Check key={c} label={c} on={f.seller.includes(c)} onClick={() => toggle("seller", c)} />)}</Group>
-      <Group title="Reserve">{[["none", "No reserve"], ["met", "Reserve met"], ["not-met", "Reserve not met"]].map(([v, l]) => <Check key={v} label={l} on={f.reserve.includes(v)} onClick={() => toggle("reserve", v)} />)}</Group>
+      <Group title="Reserve">{([["none", "No reserve"], ["met", "Reserve met"], ["not-met", "Reserve not met"]] as const).map(([v, l]) => <Check key={v} label={l} on={f.reserve.includes(v)} onClick={() => toggle("reserve", v)} />)}</Group>
       <Group title="More">
         <Check label="Ending within 10 min" on={f.endingSoon} onClick={() => setF({ ...f, endingSoon: !f.endingSoon })} />
         <Check label="Buy Now available" on={f.buyNow} onClick={() => setF({ ...f, buyNow: !f.buyNow })} />

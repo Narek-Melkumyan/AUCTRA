@@ -30,7 +30,7 @@ const handles = ["bidder_7f2", "arc_collector", "m.lauren", "g_hart", "vault_92"
 const chatLines = ["Beautiful example.", "Any service records available?", "Reserve still not met?", "Watching closely 👀", "That patina is lovely.", "Is shipping to Canada possible?", "Great lot, good luck all.", "Price is still fair here."];
 let uid = 0;
 const id = () => `${Date.now().toString(36)}${(uid++).toString(36)}`;
-const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)] as T;
 
 function makeRooms(now: number): Record<string, RoomState> {
   const rooms: Record<string, RoomState> = {};
@@ -41,7 +41,7 @@ function makeRooms(now: number): Record<string, RoomState> {
     if (!a.startsInSec) {
       let amt = a.currentBid;
       for (let i = 0; i < 8 && amt > a.startBid; i++) {
-        bids.push({ id: `${a.id}-s${i}`, user: handles[(i * 5 + a.id.length) % handles.length], amount: amt, at: now - (i + 1) * 47000 });
+        bids.push({ id: `${a.id}-s${i}`, user: handles[(i * 5 + a.id.length) % handles.length]!, amount: amt, at: now - (i + 1) * 47000 });
         amt -= a.increment * (1 + (i % 2));
       }
     }
@@ -55,7 +55,7 @@ function makeRooms(now: number): Record<string, RoomState> {
       participants: handles.slice(0, 6 + (a.id.charCodeAt(4) % 6)),
       chat: [
         { id: `${a.id}-sys`, user: "AUCTRA", text: "Welcome to the room. This is a demo simulation — bids and timers are not real.", at: now - 300000, system: true },
-        { id: `${a.id}-c1`, user: handles[2], text: "Looks stunning in person.", at: now - 120000 },
+        { id: `${a.id}-c1`, user: handles[2]!, text: "Looks stunning in person.", at: now - 120000 },
         { id: `${a.id}-c2`, user: "Moderator", text: "Please keep discussion related to this lot.", at: now - 60000, mod: true },
       ],
     };
