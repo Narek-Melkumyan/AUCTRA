@@ -43,7 +43,7 @@ function How() {
       <section className="mt-16">
         <h2 className="mb-4 font-display text-4xl">FAQ & rules</h2>
         <Accordion type="single" collapsible>
-          {[["Are bids binding?", "Yes. On the live platform every bid is a binding commitment to buy at that price if you win."], ["What is a reserve?", "A confidential minimum price. If bidding doesn't reach it, the seller isn't obliged to sell."], ["What is soft close?", "Any bid in the final 10 seconds resets the clock to 10 seconds, so everyone gets a fair chance."], ["Is this demo real?", "No. Listings, bids, timers and statistics here are simulated locally to demonstrate the interface."], ["Privacy & terms", "Full privacy policy and terms will be published before launch."]].map(([q, a]) => (
+          {([["Are bids binding?", "Yes. On the live platform every bid is a binding commitment to buy at that price if you win."], ["What is a reserve?", "A confidential minimum price. If bidding doesn't reach it, the seller isn't obliged to sell."], ["What is soft close?", "Any bid in the final 10 seconds resets the clock to 10 seconds, so everyone gets a fair chance."], ["Is this demo real?", "No. Listings, bids, timers and statistics here are simulated locally to demonstrate the interface."], ["Privacy & terms", "Full privacy policy and terms will be published before launch."]] as const).map(([q, a]) => (
             <AccordionItem key={q} value={q}><AccordionTrigger className="text-base">{q}</AccordionTrigger><AccordionContent className="text-muted-foreground">{a}</AccordionContent></AccordionItem>
           ))}
         </Accordion>
