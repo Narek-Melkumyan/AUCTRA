@@ -241,12 +241,12 @@ function Footer() {
             <button className="h-11 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground">Subscribe</button>
           </form>
         </div>
-        {[
+        {([
           { h: "Marketplace", l: [["Explore", "/explore"], ["Live Now", "/live"], ["Sell an Item", "/sell"]] },
           { h: "Company", l: [["How It Works", "/how-it-works"], ["Admin demo", "/admin"]] },
           { h: "Help", l: [["Help Center", "/how-it-works"], ["Fees", "/how-it-works"], ["Auction Rules", "/how-it-works"]] },
           { h: "Legal", l: [["Terms", "/how-it-works"], ["Privacy", "/how-it-works"]] },
-        ].map((c) => (
+        ] as const).map((c) => (
           <div key={c.h}>
             <p className="mb-4 text-sm font-semibold">{c.h}</p>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
