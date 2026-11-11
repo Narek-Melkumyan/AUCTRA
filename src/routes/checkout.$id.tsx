@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { Empty, btn, input, metaFor } from "@/components/account/AccountLayout";
 import { useRoom } from "@/lib/auction-store";
-import { createOrder } from "@/lib/demo-session";
+import { services } from "@/services";
 import { buyerFees, fmtFull } from "@/lib/auctions";
 import { cn } from "@/lib/utils";
 
@@ -31,9 +31,11 @@ function Checkout() {
     e.preventDefault();
     const d = new FormData(e.currentTarget);
     if (delivery !== "Buyer pickup" && !String(d.get("address") ?? "").trim()) { toast.error("Enter a delivery address."); return; }
-    createOrder({ auctionId: room.id, title: room.title, image: room.images[0], hammer: room.currentBid });
-    toast.success("Order created (demo — no payment taken)");
-    nav({ to: "/orders" });
+    void services.orders.createFromWin({ auctionId: room.id, title: room.title, image: room.images[0], hammer: room.currentBid }).then((r) => {
+      if (!r.ok) { toast.error(r.error); return; }
+      toast.success("Order created (demo — no payment taken)");
+      nav({ to: "/orders" });
+    });
   };
   return (
     <div className="mx-auto grid max-w-[1080px] gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_360px]">

@@ -44,3 +44,6 @@ export function createOrder(o: Omit<Order, "id" | "date" | "status">): string {
   return id;
 }
 export const orderStatusLabel: Record<OrderStatus, string> = { pending_payment: "Awaiting payment", processing: "Processing", shipped: "Shipped", delivered: "Delivered" };
+
+/** Non-hook read used by the service layer. */
+export const getUser = () => state.user;

@@ -3,7 +3,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ChevronDown, Gavel, MapPin, Maximize2, Pin, Send, ShieldAlert, ShieldCheck, Trophy, Users } from "lucide-react";
 import { toast } from "sonner";
 import { seedAuctions, fmtFull } from "@/lib/auctions";
-import { MY_HANDLE, placeBid, sendChat, useRoom, useRooms, validateBid, type RoomState } from "@/lib/auction-store";
+import { services } from "@/services";
+import { MY_HANDLE, useRoom, useRooms, validateBid, type RoomState } from "@/lib/auction-store";
 import { formatRemaining, useNow } from "@/lib/use-now";
 import { LiveBadge, StatusBadge, WatchButton } from "@/components/auction/bits";
 import { AiChat } from "@/components/ai/AiChat";
@@ -33,7 +34,7 @@ function Room() {
   const { id } = Route.useParams();
   const room = useRoom(id);
   const rooms = Object.values(useRooms()).filter((r) => r.status !== "ended");
-  if (!room) return null;
+  if (!room) return <RoomSkeleton />;
   return (
     <div className="mx-auto max-w-[1600px] px-0 sm:px-4 lg:px-6">
       {/* Room switcher */}
@@ -46,11 +47,20 @@ function Room() {
           </Link>
         ))}
       </div>
-      <div key={id} className="grid gap-4 pb-40 lg:grid-cols-[1fr_minmax(360px,420px)] lg:pb-8 2xl:grid-cols-[1fr_440px_400px]">
+      <div key={id} className="grid gap-4 pb-28 lg:grid-cols-[minmax(0,1fr)_minmax(340px,400px)] lg:pb-8 xl:grid-cols-[minmax(0,1fr)_380px_360px] 2xl:grid-cols-[minmax(0,1fr)_420px_400px]">
         <ItemPanel room={room} />
         <BidPanel room={room} />
-        <div className="lg:col-span-2 2xl:col-span-1"><ActivityPanel room={room} /></div>
+        <div className="min-w-0 lg:col-span-2 xl:col-span-1"><ActivityPanel room={room} /></div>
       </div>
+    </div>
+  );
+}
+
+function RoomSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Loading auction room" className="mx-auto grid max-w-[1600px] gap-4 px-4 py-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:px-6">
+      <div className="aspect-[4/3] animate-pulse rounded-2xl bg-secondary" />
+      <div className="h-96 animate-pulse rounded-2xl bg-secondary" />
     </div>
   );
 }
@@ -91,6 +101,13 @@ function ItemPanel({ room }: { room: RoomState }) {
           <Info title="Inspection notes">{room.inspection}</Info>
           <Info title="Shipping & pickup">{room.shipping}</Info>
         </div>
+        <div className="mt-5 flex items-center gap-3 rounded-xl border p-4">
+          <div className="grid size-10 shrink-0 place-items-center rounded-md bg-secondary text-sm font-medium">{room.seller.slice(0, 2).toUpperCase()}</div>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium">{room.seller}</p>
+            <p className="text-xs text-muted-foreground">{room.sellerType} seller · {room.verified ? "Identity verified" : "Not yet verified"}</p>
+          </div>
+        </div>
       </div>
       <Dialog open={zoom} onOpenChange={setZoom}>
         <DialogContent className="max-w-5xl p-0"><DialogTitle className="sr-only">{room.title}</DialogTitle><img src={room.images[img]} alt={room.title} className="w-full rounded-lg" /></DialogContent>
@@ -108,6 +125,7 @@ function BidPanel({ room }: { room: RoomState }) {
   const [custom, setCustom] = useState("");
   const [confirm, setConfirm] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
   const top = room.bids[0];
   const myStatus = top?.mine ? "winning" : room.bids.some((b) => b.mine) ? "outbid" : "none";
   const remaining = now === null ? null : (room.status === "upcoming" ? room.startsAt : room.endsAt) - now;
@@ -126,13 +144,16 @@ function BidPanel({ room }: { room: RoomState }) {
   };
   const submit = () => {
     if (confirm === null) return;
-    const err = placeBid(room.id, confirm);
-    if (err) { setError(err); toast.error(err); } else { toast.success(`Bid placed: ${fmtFull(confirm)}`); setCustom(""); }
+    const amount = confirm;
     setConfirm(null);
+    setPending(true);
+    void services.bidding.placeBid(room.id, amount).then((r) => {
+      if (!r.ok) { setError(r.error); toast.error(r.error); } else { toast.success(`Bid placed: ${fmtFull(amount)}`); setCustom(""); }
+    }).finally(() => setPending(false));
   };
 
   const quick = [min, min + room.increment, min + room.increment * 4];
-  const disabled = room.status !== "live";
+  const disabled = room.status !== "live" || pending;
 
   return (
     <section className={cn("relative h-fit overflow-hidden border-y bg-card p-5 transition-colors sm:rounded-2xl sm:border lg:sticky lg:top-20", myStatus === "winning" && "border-success/60", urgent && "border-live/70")}>
@@ -177,7 +198,7 @@ function BidPanel({ room }: { room: RoomState }) {
       </button>
 
       {/* Mobile sticky bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t glass p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t bg-background p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden">
         <div className="flex items-center gap-3">
           <div className="min-w-0">
             <p key={room.currentBid} className="animate-bump text-xl font-semibold tabular">{fmtFull(room.currentBid)}</p>
@@ -231,10 +252,10 @@ function ActivityPanel({ room }: { room: RoomState }) {
   const pinned = room.chat.find((c) => c.system);
 
   return (
-    <section className="flex h-[560px] flex-col overflow-hidden border-y bg-card sm:rounded-2xl sm:border lg:sticky lg:top-20 2xl:h-[calc(100vh-7rem)]">
-      <div className="grid grid-cols-4 border-b text-sm">
+    <section className="flex h-[560px] flex-col overflow-hidden border-y bg-card sm:rounded-2xl sm:border xl:sticky xl:top-20 xl:h-[calc(100vh-7rem)]">
+      <div role="tablist" aria-label="Room activity" className="grid grid-cols-4 border-b text-sm">
         {([["bids", "Bids"], ["chat", "Chat"], ["people", "People"], ["ai", "AI"]] as const).map(([k, l]) => (
-          <button key={k} onClick={() => setTab(k)} className={cn("relative py-3.5 font-medium text-muted-foreground", tab === k && "text-foreground")}>
+          <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={cn("relative py-3.5 font-medium text-muted-foreground", tab === k && "text-foreground")}>
             {l}{tab === k && <span className="absolute inset-x-4 bottom-0 h-0.5 rounded bg-primary" />}
           </button>
         ))}
@@ -262,7 +283,7 @@ function ActivityPanel({ room }: { room: RoomState }) {
             ))}
             <div ref={chatEnd} />
           </div>
-          <form onSubmit={(e) => { e.preventDefault(); sendChat(room.id, msg); setMsg(""); }} className="flex gap-2 border-t p-3">
+          <form onSubmit={(e) => { e.preventDefault(); if (!msg.trim()) return; void services.bidding.sendChat(room.id, msg); setMsg(""); }} className="flex gap-2 border-t p-3">
             <input value={msg} onChange={(e) => setMsg(e.target.value)} placeholder="Say something…" className="h-11 min-w-0 flex-1 rounded-xl border bg-background px-3 text-sm outline-none focus:border-primary" />
             <button aria-label="Send" disabled={!msg.trim()} className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground disabled:opacity-40"><Send className="size-4" /></button>
           </form>
