@@ -11,14 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as BidsRouteImport } from './routes/bids'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as LiveRouteImport } from './routes/live'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as SellRouteImport } from './routes/sell'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as WatchlistRouteImport } from './routes/watchlist'
+import { Route as CheckoutIdRouteImport } from './routes/checkout.$id'
 import { Route as ItemIdRouteImport } from './routes/item.$id'
 import { Route as RoomIdRouteImport } from './routes/room.$id'
 
@@ -30,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BidsRoute = BidsRouteImport.update({
@@ -47,6 +58,11 @@ const ExploreRoute = ExploreRouteImport.update({
   path: '/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
@@ -57,9 +73,19 @@ const LiveRoute = LiveRouteImport.update({
   path: '/live',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NotificationsRoute = NotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersRoute = OrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SellRoute = SellRouteImport.update({
@@ -67,9 +93,19 @@ const SellRoute = SellRouteImport.update({
   path: '/sell',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WatchlistRoute = WatchlistRouteImport.update({
   id: '/watchlist',
   path: '/watchlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutIdRoute = CheckoutIdRouteImport.update({
+  id: '/checkout/$id',
+  path: '/checkout/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ItemIdRoute = ItemIdRouteImport.update({
@@ -86,28 +122,40 @@ const RoomIdRoute = RoomIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/assistant': typeof AssistantRoute
   '/bids': typeof BidsRoute
   '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/help': typeof HelpRoute
   '/how-it-works': typeof HowItWorksRoute
   '/live': typeof LiveRoute
+  '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
+  '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
+  '/settings': typeof SettingsRoute
   '/watchlist': typeof WatchlistRoute
+  '/checkout/$id': typeof CheckoutIdRoute
   '/item/$id': typeof ItemIdRoute
   '/room/$id': typeof RoomIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/assistant': typeof AssistantRoute
   '/bids': typeof BidsRoute
   '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/help': typeof HelpRoute
   '/how-it-works': typeof HowItWorksRoute
   '/live': typeof LiveRoute
+  '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
+  '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
+  '/settings': typeof SettingsRoute
   '/watchlist': typeof WatchlistRoute
+  '/checkout/$id': typeof CheckoutIdRoute
   '/item/$id': typeof ItemIdRoute
   '/room/$id': typeof RoomIdRoute
 }
@@ -115,14 +163,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/assistant': typeof AssistantRoute
   '/bids': typeof BidsRoute
   '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/help': typeof HelpRoute
   '/how-it-works': typeof HowItWorksRoute
   '/live': typeof LiveRoute
+  '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
+  '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
+  '/settings': typeof SettingsRoute
   '/watchlist': typeof WatchlistRoute
+  '/checkout/$id': typeof CheckoutIdRoute
   '/item/$id': typeof ItemIdRoute
   '/room/$id': typeof RoomIdRoute
 }
@@ -131,42 +185,60 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/assistant'
     | '/bids'
     | '/dashboard'
     | '/explore'
+    | '/help'
     | '/how-it-works'
     | '/live'
+    | '/login'
     | '/notifications'
+    | '/orders'
     | '/sell'
+    | '/settings'
     | '/watchlist'
+    | '/checkout/$id'
     | '/item/$id'
     | '/room/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
+    | '/assistant'
     | '/bids'
     | '/dashboard'
     | '/explore'
+    | '/help'
     | '/how-it-works'
     | '/live'
+    | '/login'
     | '/notifications'
+    | '/orders'
     | '/sell'
+    | '/settings'
     | '/watchlist'
+    | '/checkout/$id'
     | '/item/$id'
     | '/room/$id'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/assistant'
     | '/bids'
     | '/dashboard'
     | '/explore'
+    | '/help'
     | '/how-it-works'
     | '/live'
+    | '/login'
     | '/notifications'
+    | '/orders'
     | '/sell'
+    | '/settings'
     | '/watchlist'
+    | '/checkout/$id'
     | '/item/$id'
     | '/room/$id'
   fileRoutesById: FileRoutesById
@@ -174,14 +246,20 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  AssistantRoute: typeof AssistantRoute
   BidsRoute: typeof BidsRoute
   DashboardRoute: typeof DashboardRoute
   ExploreRoute: typeof ExploreRoute
+  HelpRoute: typeof HelpRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LiveRoute: typeof LiveRoute
+  LoginRoute: typeof LoginRoute
   NotificationsRoute: typeof NotificationsRoute
+  OrdersRoute: typeof OrdersRoute
   SellRoute: typeof SellRoute
+  SettingsRoute: typeof SettingsRoute
   WatchlistRoute: typeof WatchlistRoute
+  CheckoutIdRoute: typeof CheckoutIdRoute
   ItemIdRoute: typeof ItemIdRoute
   RoomIdRoute: typeof RoomIdRoute
 }
@@ -200,6 +278,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bids': {
@@ -223,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/how-it-works': {
       id: '/how-it-works'
       path: '/how-it-works'
@@ -237,11 +329,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LiveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/notifications': {
       id: '/notifications'
       path: '/notifications'
       fullPath: '/notifications'
       preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders': {
+      id: '/orders'
+      path: '/orders'
+      fullPath: '/orders'
+      preLoaderRoute: typeof OrdersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sell': {
@@ -251,11 +357,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/watchlist': {
       id: '/watchlist'
       path: '/watchlist'
       fullPath: '/watchlist'
       preLoaderRoute: typeof WatchlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/$id': {
+      id: '/checkout/$id'
+      path: '/checkout/$id'
+      fullPath: '/checkout/$id'
+      preLoaderRoute: typeof CheckoutIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/item/$id': {
@@ -278,14 +398,20 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  AssistantRoute: AssistantRoute,
   BidsRoute: BidsRoute,
   DashboardRoute: DashboardRoute,
   ExploreRoute: ExploreRoute,
+  HelpRoute: HelpRoute,
   HowItWorksRoute: HowItWorksRoute,
   LiveRoute: LiveRoute,
+  LoginRoute: LoginRoute,
   NotificationsRoute: NotificationsRoute,
+  OrdersRoute: OrdersRoute,
   SellRoute: SellRoute,
+  SettingsRoute: SettingsRoute,
   WatchlistRoute: WatchlistRoute,
+  CheckoutIdRoute: CheckoutIdRoute,
   ItemIdRoute: ItemIdRoute,
   RoomIdRoute: RoomIdRoute,
 }
