@@ -198,7 +198,7 @@ function BidPanel({ room }: { room: RoomState }) {
       </button>
 
       {/* Mobile sticky bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t glass p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t bg-background p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden">
         <div className="flex items-center gap-3">
           <div className="min-w-0">
             <p key={room.currentBid} className="animate-bump text-xl font-semibold tabular">{fmtFull(room.currentBid)}</p>
