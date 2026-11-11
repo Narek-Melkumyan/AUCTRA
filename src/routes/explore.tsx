@@ -108,7 +108,7 @@ function Explore() {
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-10">
       <nav className="mb-3 text-sm text-muted-foreground"><Link to="/" className="hover:text-foreground">Home</Link> / <span className="text-foreground">{search.watchlist ? "Watchlist" : f.cats.length === 1 ? f.cats[0] : "All auctions"}</span></nav>
-      <h1 className="font-display text-5xl sm:text-6xl">{search.watchlist ? "Your Watchlist" : "Explore Auctions"}</h1>
+      <h1 className="font-display text-5xl sm:text-4xl">{search.watchlist ? "Your Watchlist" : "Explore Auctions"}</h1>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Search within results…" className="h-11 min-w-0 flex-1 rounded-xl border bg-card px-4 outline-none focus:border-primary sm:max-w-sm" />
         <button onClick={() => setDrawer(true)} className="inline-flex h-11 items-center gap-2 rounded-xl border px-4 font-medium lg:hidden"><SlidersHorizontal className="size-4" /> Filters</button>

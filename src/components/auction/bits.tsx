@@ -7,7 +7,7 @@ import { formatRemaining, useNow } from "@/lib/use-now";
 
 export function LiveBadge({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 rounded-full bg-live px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-live-foreground", className)}>
+    <span className={cn("inline-flex items-center gap-1.5 rounded-full bg-live px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-live-foreground", className)}>
       <span className="size-1.5 rounded-full bg-live-foreground animate-live" /> Live
     </span>
   );
@@ -16,7 +16,7 @@ export function LiveBadge({ className }: { className?: string }) {
 export function StatusBadge({ room }: { room: RoomState }) {
   if (room.status === "live") return <LiveBadge />;
   return (
-    <span className="rounded-full glass px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-foreground">
+    <span className="rounded-full glass px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground">
       {room.status === "upcoming" ? "Upcoming" : "Closed"}
     </span>
   );
@@ -29,7 +29,7 @@ export function Countdown({ room, className }: { room: RoomState; className?: st
   const target = room.status === "upcoming" ? room.startsAt : room.endsAt;
   const ms = target - now;
   return (
-    <span className={cn("tabular", room.status === "live" && ms < 10000 && "animate-urgent font-bold", className)}>
+    <span className={cn("tabular", room.status === "live" && ms < 10000 && "animate-urgent font-semibold", className)}>
       {room.status === "upcoming" && "Starts in "}
       {formatRemaining(ms)}
     </span>
@@ -46,7 +46,7 @@ export function WatchButton({ id, className }: { id: string; className?: string 
         e.stopPropagation();
         toggleWatch(id);
       }}
-      className={cn("grid size-9 place-items-center rounded-full glass transition hover:scale-105", className)}
+      className={cn("grid size-9 place-items-center rounded-full glass transition", className)}
     >
       <Heart className={cn("size-4", watched ? "fill-live text-live" : "text-foreground")} />
     </button>
@@ -56,9 +56,9 @@ export function WatchButton({ id, className }: { id: string; className?: string 
 export function AuctionCard({ room, layout = "grid" }: { room: RoomState; layout?: "grid" | "list" }) {
   const list = layout === "list";
   return (
-    <article className={cn("group relative overflow-hidden rounded-2xl border bg-card shadow-card transition duration-300 hover:-translate-y-1 hover:border-primary/40", list && "sm:flex")}>
+    <article className={cn("group relative overflow-hidden rounded-2xl border bg-card shadow-card transition duration-300 hover:border-primary/40", list && "sm:flex")}>
       <Link to="/item/$id" params={{ id: room.id }} className={cn("relative block overflow-hidden", list ? "sm:w-72 sm:shrink-0" : "")}>
-        <img src={room.images[0]} alt={room.title} loading="lazy" width={800} height={600} className="aspect-[4/3] h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <img src={room.images[0]} alt={room.title} loading="lazy" width={800} height={600} className="aspect-[4/3] h-full w-full object-cover transition duration-700" />
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
           <StatusBadge room={room} />
           <WatchButton id={room.id} />
@@ -78,7 +78,7 @@ export function AuctionCard({ room, layout = "grid" }: { room: RoomState; layout
         <div className="mt-auto flex items-end justify-between gap-3">
           <div>
             <p className="text-xs text-muted-foreground">{room.status === "upcoming" ? "Starting bid" : "Current bid"}</p>
-            <p key={room.currentBid} className="animate-bump text-2xl font-bold tabular">{fmt(room.currentBid)}</p>
+            <p key={room.currentBid} className="animate-bump text-2xl font-semibold tabular">{fmt(room.currentBid)}</p>
             {room.buyNow && <p className="text-xs text-muted-foreground">Buy now {fmt(room.buyNow)}</p>}
           </div>
           <div className="flex flex-col items-end gap-1 text-xs text-muted-foreground">
@@ -105,8 +105,8 @@ export function SectionHeading({ eyebrow, title, action }: { eyebrow?: string; t
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        {eyebrow && <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>}
-        <h2 className="font-display text-4xl leading-tight sm:text-5xl">{title}</h2>
+        {eyebrow && <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">{eyebrow}</p>}
+        <h2 className="font-display text-4xl leading-tight sm:text-4xl">{title}</h2>
       </div>
       {action}
     </div>

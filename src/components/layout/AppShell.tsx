@@ -13,7 +13,7 @@ export function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2" aria-label="AUCTRA home">
       <span className="grid size-8 place-items-center rounded-lg bg-gold-gradient font-display text-xl text-primary-foreground">A</span>
-      <span className="text-lg font-extrabold tracking-[0.25em]">AUCTRA</span>
+      <span className="text-lg font-semibold tracking-[0.18em]">AUCTRA</span>
     </Link>
   );
 }
@@ -49,7 +49,7 @@ function Notifications() {
     <Popover onOpenChange={(o) => !o && markAllRead()}>
       <PopoverTrigger aria-label="Notifications" className="relative grid size-10 place-items-center rounded-full hover:bg-accent">
         <Bell className="size-5" />
-        {unread > 0 && <span className="absolute right-1.5 top-1.5 grid min-w-4 place-items-center rounded-full bg-live px-1 text-[10px] font-bold text-live-foreground">{unread}</span>}
+        {unread > 0 && <span className="absolute right-1.5 top-1.5 grid min-w-4 place-items-center rounded-full bg-live px-1 text-[10px] font-semibold text-live-foreground">{unread}</span>}
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between border-b px-4 py-3">
@@ -94,7 +94,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
       <div className="flex items-center justify-center gap-3 bg-primary/10 px-4 py-1.5 text-xs text-foreground">
-        <span className="font-bold uppercase tracking-wider text-primary">Demo mode</span>
+        <span className="font-semibold uppercase tracking-wider text-primary">Demo mode</span>
         <span className="hidden text-muted-foreground sm:inline">Bids, timers and activity are simulated locally — not real auction data.</span>
         <button onClick={() => { resetDemo(); toast.success("Demo reset"); }} className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
           <RotateCcw className="size-3" /> Reset demo
@@ -131,7 +131,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Notifications />
             <Link to="/explore" search={{ watchlist: true }} aria-label="Watchlist" className="relative hidden size-10 place-items-center rounded-full hover:bg-accent sm:grid">
               <Heart className="size-5" />
-              {watchCount > 0 && <span className="absolute right-1 top-1 text-[10px] font-bold text-primary">{watchCount}</span>}
+              {watchCount > 0 && <span className="absolute right-1 top-1 text-[10px] font-semibold text-primary">{watchCount}</span>}
             </Link>
             <button onClick={toggle} aria-label="Toggle theme" className="grid size-10 place-items-center rounded-full hover:bg-accent">{light ? <Moon className="size-5" /> : <Sun className="size-5" />}</button>
             <button onClick={() => toast("Accounts arrive once a backend is connected.", { description: "This demo runs without sign-in." })} className="ml-2 hidden h-10 rounded-full bg-foreground px-5 text-sm font-semibold text-background sm:block">Sign in</button>
@@ -162,7 +162,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Floating AI button (desktop) */}
       {!ai && !inRoom && (
-        <button onClick={() => setAi(true)} className="fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-gold-gradient px-5 py-3.5 text-sm font-bold text-primary-foreground shadow-gold transition hover:scale-105 lg:flex">
+        <button onClick={() => setAi(true)} className="fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-gold-gradient px-5 py-3.5 text-sm font-semibold text-primary-foreground shadow-gold transition lg:flex">
           <Sparkles className="size-4" /> Ask AUCTRA AI
         </button>
       )}

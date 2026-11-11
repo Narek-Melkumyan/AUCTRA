@@ -31,11 +31,11 @@ function Admin() {
   const live = rooms.filter((r) => r.status === "live");
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-10">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Admin · demo data</p>
-      <h1 className="mt-2 font-display text-5xl sm:text-6xl">Live Auction Monitor</h1>
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Admin · demo data</p>
+      <h1 className="mt-2 font-display text-5xl sm:text-4xl">Live Auction Monitor</h1>
       <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {[["Live rooms", live.length], ["Total bids", rooms.reduce((a, r) => a + r.bids.length, 0)], ["Viewers online", live.reduce((a, r) => a + r.viewers, 0)], ["Live GMV", fmtFull(live.reduce((a, r) => a + r.currentBid, 0))]].map(([l, v]) => (
-          <div key={l as string} className="rounded-2xl border bg-card p-5"><p className="text-sm text-muted-foreground">{l}</p><p className="mt-2 text-2xl font-bold tabular sm:text-3xl">{v}</p></div>
+          <div key={l as string} className="rounded-2xl border bg-card p-5"><p className="text-sm text-muted-foreground">{l}</p><p className="mt-2 text-2xl font-semibold tabular sm:text-3xl">{v}</p></div>
         ))}
       </div>
       <div className="mt-8 flex gap-2">{(["all", "live", "upcoming", "ended"] as const).map((f) => <button key={f} onClick={() => setFilter(f)} className={cn("rounded-full border px-4 py-1.5 text-sm capitalize", filter === f && "border-primary bg-primary/10")}>{f}</button>)}</div>

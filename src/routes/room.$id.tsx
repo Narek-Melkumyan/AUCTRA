@@ -142,11 +142,11 @@ function BidPanel({ room }: { room: RoomState }) {
       </div>
       <div className="mt-6 text-center">
         <p className="text-xs uppercase tracking-widest text-muted-foreground">{room.status === "upcoming" ? "Starts in" : room.status === "ended" ? "Auction" : "Time remaining"}</p>
-        <p className={cn("font-display text-6xl tabular sm:text-7xl", urgent && "animate-urgent")}>{room.status === "ended" ? "Closed" : remaining === null ? "--:--" : formatRemaining(remaining)}</p>
+        <p className={cn("font-display text-4xl tabular sm:text-7xl", urgent && "animate-urgent")}>{room.status === "ended" ? "Closed" : remaining === null ? "--:--" : formatRemaining(remaining)}</p>
       </div>
       <div className="mt-6 rounded-2xl bg-secondary p-5 text-center">
         <p className="text-xs uppercase tracking-widest text-muted-foreground">Current highest bid</p>
-        <p key={room.currentBid} className="animate-bump text-5xl font-extrabold tabular">{fmtFull(room.currentBid)}</p>
+        <p key={room.currentBid} className="animate-bump text-5xl font-semibold tabular">{fmtFull(room.currentBid)}</p>
         <div className="mt-3 flex justify-center gap-4 text-xs text-muted-foreground">
           <span>{room.bids.length} bids</span>
           <span>Increment {fmtFull(room.increment)}</span>
@@ -172,7 +172,7 @@ function BidPanel({ room }: { room: RoomState }) {
       <p className="mt-3 text-center text-xs text-muted-foreground">Minimum next bid <span className="font-semibold text-foreground">{fmtFull(min)}</span></p>
 
       {/* Desktop main button */}
-      <button disabled={disabled} onClick={() => request(min)} className="mt-4 hidden h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-lg font-bold text-primary-foreground transition hover:shadow-gold disabled:opacity-40 lg:flex">
+      <button disabled={disabled} onClick={() => request(min)} className="mt-4 hidden h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-lg font-semibold text-primary-foreground transition hover:shadow-gold disabled:opacity-40 lg:flex">
         <Gavel className="size-5" /> BID NOW · {fmtFull(min)}
       </button>
 
@@ -180,10 +180,10 @@ function BidPanel({ room }: { room: RoomState }) {
       <div className="fixed inset-x-0 bottom-0 z-40 border-t glass p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden">
         <div className="flex items-center gap-3">
           <div className="min-w-0">
-            <p key={room.currentBid} className="animate-bump text-xl font-extrabold tabular">{fmtFull(room.currentBid)}</p>
+            <p key={room.currentBid} className="animate-bump text-xl font-semibold tabular">{fmtFull(room.currentBid)}</p>
             <p className={cn("text-xs tabular text-muted-foreground", urgent && "animate-urgent")}>{room.status === "ended" ? "Closed" : remaining === null ? "--:--" : formatRemaining(remaining)} · {myStatus === "winning" ? "Leading" : myStatus === "outbid" ? "Outbid" : `${room.bids.length} bids`}</p>
           </div>
-          <button disabled={disabled} onClick={() => request(min)} className="ml-auto h-12 flex-1 rounded-xl bg-primary px-4 font-bold text-primary-foreground disabled:opacity-40">Bid {fmtFull(min)}</button>
+          <button disabled={disabled} onClick={() => request(min)} className="ml-auto h-12 flex-1 rounded-xl bg-primary px-4 font-semibold text-primary-foreground disabled:opacity-40">Bid {fmtFull(min)}</button>
         </div>
       </div>
 
@@ -192,7 +192,7 @@ function BidPanel({ room }: { room: RoomState }) {
           <div>
             <Trophy className={cn("mx-auto size-10", top?.mine ? "text-success" : "text-primary")} />
             <p className="mt-3 font-display text-4xl">{top?.mine ? "You won!" : "Auction closed"}</p>
-            <p className="mt-2 text-muted-foreground">{top ? <>Winning bid <span className="font-bold text-foreground">{fmtFull(room.currentBid)}</span> by {top.mine ? "you" : top.user}</> : "No bids were placed."}</p>
+            <p className="mt-2 text-muted-foreground">{top ? <>Winning bid <span className="font-semibold text-foreground">{fmtFull(room.currentBid)}</span> by {top.mine ? "you" : top.user}</> : "No bids were placed."}</p>
             {room.reserve === "not-met" && <p className="mt-1 text-sm text-live">Reserve not met — seller may review offers.</p>}
             <Link to="/live" className="mt-5 inline-flex h-11 items-center rounded-xl bg-primary px-5 font-semibold text-primary-foreground">Browse live rooms</Link>
           </div>
@@ -205,11 +205,11 @@ function BidPanel({ room }: { room: RoomState }) {
           <DialogDescription>Bids are binding on a real platform. This is a demo — no money moves.</DialogDescription>
           <div className="rounded-xl bg-secondary p-4 text-center">
             <p className="text-sm text-muted-foreground">{room.title}</p>
-            <p className="text-4xl font-extrabold tabular">{confirm !== null && fmtFull(confirm)}</p>
+            <p className="text-4xl font-semibold tabular">{confirm !== null && fmtFull(confirm)}</p>
           </div>
           <div className="flex gap-2">
             <button onClick={() => setConfirm(null)} className="h-12 flex-1 rounded-xl border font-semibold">Cancel</button>
-            <button onClick={submit} className="h-12 flex-1 rounded-xl bg-primary font-bold text-primary-foreground">Place bid</button>
+            <button onClick={submit} className="h-12 flex-1 rounded-xl bg-primary font-semibold text-primary-foreground">Place bid</button>
           </div>
         </DialogContent>
       </Dialog>
@@ -240,8 +240,8 @@ function ActivityPanel({ room }: { room: RoomState }) {
           {room.bids.length === 0 && <p className="p-8 text-center text-sm text-muted-foreground">No bids yet. Be the first.</p>}
           {room.bids.map((b, i) => (
             <div key={b.id} className={cn("flex items-center justify-between border-b px-4 py-3 text-sm", i === 0 && "animate-row bg-primary/5", b.mine && "text-success")}>
-              <div><p className="font-medium">{b.mine ? "You" : b.user}{i === 0 && <span className="ml-2 text-[10px] font-bold uppercase text-primary">Highest</span>}</p><p className="text-xs text-muted-foreground">{time(b.at)}</p></div>
-              <p className="font-bold tabular">{fmtFull(b.amount)}</p>
+              <div><p className="font-medium">{b.mine ? "You" : b.user}{i === 0 && <span className="ml-2 text-[10px] font-semibold uppercase text-primary">Highest</span>}</p><p className="text-xs text-muted-foreground">{time(b.at)}</p></div>
+              <p className="font-semibold tabular">{fmtFull(b.amount)}</p>
             </div>
           ))}
         </div>
@@ -268,11 +268,11 @@ function ActivityPanel({ room }: { room: RoomState }) {
       {tab === "people" && (
         <div className="min-h-0 flex-1 overflow-y-auto p-4">
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-secondary p-4"><p className="text-2xl font-bold tabular">{room.viewers}</p><p className="text-xs text-muted-foreground">Online viewers</p></div>
-            <div className="rounded-xl bg-secondary p-4"><p className="text-2xl font-bold tabular">{new Set(room.bids.map((b) => b.user)).size}</p><p className="text-xs text-muted-foreground">Active bidders</p></div>
+            <div className="rounded-xl bg-secondary p-4"><p className="text-2xl font-semibold tabular">{room.viewers}</p><p className="text-xs text-muted-foreground">Online viewers</p></div>
+            <div className="rounded-xl bg-secondary p-4"><p className="text-2xl font-semibold tabular">{new Set(room.bids.map((b) => b.user)).size}</p><p className="text-xs text-muted-foreground">Active bidders</p></div>
           </div>
           <p className="mb-2 mt-5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">In the room</p>
-          {room.participants.map((p) => <div key={p} className="flex items-center gap-3 py-2 text-sm"><span className="grid size-8 place-items-center rounded-full bg-accent text-xs font-bold uppercase">{p.slice(0, 2)}</span>{p}<span className="ml-auto size-2 rounded-full bg-success" /></div>)}
+          {room.participants.map((p) => <div key={p} className="flex items-center gap-3 py-2 text-sm"><span className="grid size-8 place-items-center rounded-full bg-accent text-xs font-semibold uppercase">{p.slice(0, 2)}</span>{p}<span className="ml-auto size-2 rounded-full bg-success" /></div>)}
         </div>
       )}
       {tab === "ai" && <div className="min-h-0 flex-1"><AiChat key={room.id} context={room} compact /></div>}

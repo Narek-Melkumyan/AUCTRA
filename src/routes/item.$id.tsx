@@ -49,16 +49,16 @@ function Item() {
         </div>
         <aside className="h-fit space-y-5 lg:sticky lg:top-24">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">{r.lot} · {r.category}</p>
-          <h1 className="font-display text-4xl leading-tight sm:text-5xl">{r.title}</h1>
+          <h1 className="font-display text-4xl leading-tight sm:text-4xl">{r.title}</h1>
           <p className="inline-flex items-center gap-1 text-sm text-muted-foreground"><MapPin className="size-4" />{r.location}</p>
           <div className="rounded-3xl border bg-card p-6 shadow-card">
             <div className="flex items-end justify-between">
-              <div><p className="text-sm text-muted-foreground">Current bid</p><p key={r.currentBid} className="animate-bump text-4xl font-extrabold tabular">{fmtFull(r.currentBid)}</p></div>
-              <div className="text-right"><p className="text-sm text-muted-foreground">{r.status === "upcoming" ? "Opens" : "Ends in"}</p><Countdown room={r} className="text-2xl font-bold" /></div>
+              <div><p className="text-sm text-muted-foreground">Current bid</p><p key={r.currentBid} className="animate-bump text-4xl font-semibold tabular">{fmtFull(r.currentBid)}</p></div>
+              <div className="text-right"><p className="text-sm text-muted-foreground">{r.status === "upcoming" ? "Opens" : "Ends in"}</p><Countdown room={r} className="text-2xl font-semibold" /></div>
             </div>
             <p className={cn("mt-3 text-sm", r.reserve === "met" ? "text-success" : r.reserve === "not-met" ? "text-live" : "text-muted-foreground")}>{r.reserve === "met" ? "Reserve met" : r.reserve === "not-met" ? "Reserve not yet met" : "No reserve"} · {r.bids.length} bids · {r.watchers} watching</p>
             {r.buyNow && <p className="mt-1 text-sm text-muted-foreground">Buy Now available at {fmtFull(r.buyNow)}</p>}
-            <Link to="/room/$id" params={{ id: r.id }} className="mt-5 flex h-13 items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-bold text-primary-foreground hover:shadow-gold"><Radio className="size-5" /> View Live Auction Room</Link>
+            <Link to="/room/$id" params={{ id: r.id }} className="mt-5 flex h-13 items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-semibold text-primary-foreground hover:shadow-gold"><Radio className="size-5" /> View Live Auction Room</Link>
             <div className="mt-3 flex gap-2">
               <WatchButton id={r.id} className="size-12 border" />
               <button onClick={() => { navigator.clipboard?.writeText(window.location.href); toast.success("Link copied"); }} className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border font-semibold"><Share2 className="size-4" /> Share</button>
@@ -73,7 +73,7 @@ function Item() {
             <p className="mt-3 text-xs text-muted-foreground">Demo fee model. Excludes shipping and taxes.</p>
           </div>
           <div className="flex items-center gap-3 rounded-3xl border p-5">
-            <span className="grid size-11 place-items-center rounded-full bg-accent font-bold">{r.seller[0]}</span>
+            <span className="grid size-11 place-items-center rounded-full bg-accent font-semibold">{r.seller[0]}</span>
             <div><p className="font-semibold">{r.seller}</p><p className="inline-flex items-center gap-1 text-xs text-muted-foreground">{r.verified && <ShieldCheck className="size-3.5 text-primary" />}{r.verified ? "Verified" : "Unverified"} {r.sellerType.toLowerCase()} seller</p></div>
           </div>
         </aside>

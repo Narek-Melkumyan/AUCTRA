@@ -29,7 +29,7 @@ function Sell() {
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div><p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Seller dashboard · demo data</p><h1 className="mt-2 font-display text-5xl sm:text-6xl">Good evening, Riviera Motors</h1></div>
+        <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Seller dashboard · demo data</p><h1 className="mt-2 font-display text-5xl sm:text-4xl">Good evening, Riviera Motors</h1></div>
         <button onClick={() => setWizard(true)} className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 font-semibold text-primary-foreground hover:shadow-gold"><Plus className="size-4" /> Create listing</button>
       </div>
       {wizard ? <Wizard onClose={() => setWizard(false)} /> : (
@@ -37,7 +37,7 @@ function Sell() {
           <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {[[Package, "Active listings", "12"], [Check, "Completed sales", "184"], [DollarSign, "Revenue (90d)", "$1.84M"], [Gavel, "Pending payments", "3"]].map(([I, l, v]) => {
               const Icon = I as typeof Package;
-              return <div key={l as string} className="rounded-2xl border bg-card p-5"><Icon className="size-5 text-primary" /><p className="mt-4 text-3xl font-bold">{v as string}</p><p className="text-sm text-muted-foreground">{l as string}</p></div>;
+              return <div key={l as string} className="rounded-2xl border bg-card p-5"><Icon className="size-5 text-primary" /><p className="mt-4 text-3xl font-semibold">{v as string}</p><p className="text-sm text-muted-foreground">{l as string}</p></div>;
             })}
           </div>
           <div className="mt-6 rounded-2xl border bg-card p-5">

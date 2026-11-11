@@ -35,7 +35,7 @@ function Home() {
             <p className="mb-6 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium text-muted-foreground">
               <span className="size-1.5 rounded-full bg-live animate-live" /> {live.length} auctions live right now
             </p>
-            <h1 className="font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.95]">
+            <h1 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-[0.95]">
               Extraordinary Finds.
               <br />
               <span className="italic text-gold-gradient">Unmatched</span> Possibilities.
@@ -58,7 +58,7 @@ function Home() {
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border md:grid-cols-4">
             {[["12,500+", "Active Auctions"], ["150K+", "Registered Bidders"], ["45+", "Countries"], ["$250M+", "Auction Volume"]].map(([n, l]) => (
               <div key={l} className="bg-background p-6">
-                <p className="font-display text-4xl sm:text-5xl">{n}</p>
+                <p className="font-display text-4xl sm:text-4xl">{n}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{l}</p>
               </div>
             ))}
@@ -81,7 +81,7 @@ function Home() {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {categories.map((c, i) => (
             <Link key={c.slug} to="/explore" search={{ category: c.name }} className={`group relative overflow-hidden rounded-2xl border ${i === 0 ? "md:col-span-2 md:row-span-2" : ""}`}>
-              <img src={c.image} alt={c.name} loading="lazy" className="aspect-square h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+              <img src={c.image} alt={c.name} loading="lazy" className="aspect-square h-full w-full object-cover transition duration-700" />
               <div className="absolute inset-0 bg-fade" />
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <p className={`font-display ${i === 0 ? "text-4xl" : "text-2xl"}`}>{c.name}</p>
@@ -103,7 +103,7 @@ function Home() {
                 <div className="min-w-0 flex-1">
                   <p className="text-xs uppercase tracking-wider text-muted-foreground">{r.category}</p>
                   <p className="truncate text-lg font-semibold">{r.title}</p>
-                  <p className="text-sm text-muted-foreground">Current <span className="font-bold text-foreground tabular">${r.currentBid.toLocaleString()}</span></p>
+                  <p className="text-sm text-muted-foreground">Current <span className="font-semibold text-foreground tabular">${r.currentBid.toLocaleString()}</span></p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-muted-foreground">Ends in</p>
@@ -121,7 +121,7 @@ function Home() {
         <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
           {collections.map((c) => (
             <Link key={c.name} to="/explore" className="group relative w-72 shrink-0 snap-start overflow-hidden rounded-3xl border sm:w-80">
-              <img src={c.image} alt={c.name} loading="lazy" className="aspect-[3/4] w-full object-cover transition duration-700 group-hover:scale-105" />
+              <img src={c.image} alt={c.name} loading="lazy" className="aspect-[3/4] w-full object-cover transition duration-700" />
               <div className="absolute inset-0 bg-fade" />
               <div className="absolute inset-x-0 bottom-0 p-6">
                 <p className="font-display text-3xl">{c.name}</p>
@@ -168,8 +168,8 @@ function Home() {
       <section className={`${wrap} py-16`}>
         <div className="grid items-center gap-10 overflow-hidden rounded-3xl border bg-surface p-6 sm:p-10 lg:grid-cols-2 lg:p-16">
           <div>
-            <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary"><Sparkles className="size-4" /> AUCTRA AI</p>
-            <h2 className="font-display text-5xl leading-tight sm:text-6xl">Your Personal Auction Expert.</h2>
+            <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary"><Sparkles className="size-4" /> AUCTRA AI</p>
+            <h2 className="font-display text-3xl leading-tight sm:text-4xl">Your Personal Auction Expert.</h2>
             <p className="mt-5 max-w-md text-muted-foreground">Discover products, compare listings, understand auction fees, and navigate bidding — in plain language. Informational only; AI never bids for you.</p>
             <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground"><Eye className="size-4" /> Try it — it's live on this page.</div>
           </div>
