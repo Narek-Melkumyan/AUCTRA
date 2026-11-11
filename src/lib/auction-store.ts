@@ -184,3 +184,6 @@ export function useAuctionStore<T>(selector: (s: State) => T): T {
 
 export const useRooms = () => useAuctionStore((s) => s.rooms);
 export const useRoom = (id: string) => useAuctionStore((s) => s.rooms[id]);
+
+/** Non-hook read used by the service layer. */
+export const getRoomsSnapshot = () => state.rooms;
