@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Send, Sparkles } from "lucide-react";
-import { askAssistant, suggestedPrompts, type AiReply } from "@/lib/ai-mock";
+import { suggestedPrompts } from "@/lib/ai-mock";
+import { services } from "@/services";
 import { useRooms, type RoomState } from "@/lib/auction-store";
 import { fmt } from "@/lib/auctions";
 import { cn } from "@/lib/utils";
@@ -23,11 +24,10 @@ export function AiChat({ context, compact }: { context?: RoomState; compact?: bo
     setMsgs((m) => [...m, { role: "user", text: q }]);
     setInput("");
     setTyping(true);
-    setTimeout(() => {
-      const r: AiReply = askAssistant(q, Object.values(rooms), context);
-      setMsgs((m) => [...m, { role: "ai", ...r }]);
-      setTyping(false);
-    }, 700);
+    services.ai.ask(q, Object.values(rooms), context)
+      .then((r) => setMsgs((m) => [...m, { role: "ai", ...r }]))
+      .catch(() => setMsgs((m) => [...m, { role: "ai", text: "The assistant is unavailable right now. Please try again." }]))
+      .finally(() => setTyping(false));
   };
 
   return (

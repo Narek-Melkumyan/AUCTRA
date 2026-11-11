@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { btn, input, metaFor } from "@/components/account/AccountLayout";
 import { Logo } from "@/components/layout/AppShell";
-import { signIn } from "@/lib/demo-session";
+import { services } from "@/services";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/login")({
@@ -25,9 +25,12 @@ function Login() {
     if (mode === "up" && !String(f.get("name") ?? "").trim()) return setErr("Enter your full name.");
     if (mode === "up" && !f.get("terms")) return setErr("Please accept the terms to continue.");
     setErr(null);
-    signIn(email, String(f.get("name") ?? ""));
-    toast.success(mode === "up" ? "Demo account created" : "Signed in (demo)");
-    nav({ to: "/dashboard" });
+    const name = String(f.get("name") ?? "");
+    void (mode === "up" ? services.auth.register(name, email, pw) : services.auth.signIn(email, pw)).then((r) => {
+      if (!r.ok) return setErr(r.error);
+      toast.success(mode === "up" ? "Demo account created" : "Signed in (demo)");
+      nav({ to: "/dashboard" });
+    });
   };
   return (
     <div className="mx-auto grid min-h-[calc(100vh-8rem)] max-w-sm content-center px-4 py-12">
