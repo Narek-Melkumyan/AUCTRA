@@ -17,7 +17,7 @@ function Settings() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const name = String(f.get("name") ?? "").trim();
-    if (!name) return toast.error("Name can't be empty.");
+    if (!name) { toast.error("Name can't be empty."); return; }
     updateProfile({ name, phone: String(f.get("phone") ?? ""), country: String(f.get("country") ?? "") });
     toast.success("Profile saved");
   };

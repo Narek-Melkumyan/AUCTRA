@@ -30,7 +30,7 @@ function Checkout() {
   const place = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const d = new FormData(e.currentTarget);
-    if (delivery !== "Buyer pickup" && !String(d.get("address") ?? "").trim()) return toast.error("Enter a delivery address.");
+    if (delivery !== "Buyer pickup" && !String(d.get("address") ?? "").trim()) { toast.error("Enter a delivery address."); return; }
     createOrder({ auctionId: room.id, title: room.title, image: room.images[0], hammer: room.currentBid });
     toast.success("Order created (demo — no payment taken)");
     nav({ to: "/orders" });

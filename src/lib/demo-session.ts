@@ -6,7 +6,7 @@ import { useSyncExternalStore } from "react";
 
 export type Profile = { name: string; email: string; handle: string; phone: string; country: string; emailAlerts: boolean; outbidAlerts: boolean; endingAlerts: boolean };
 export type OrderStatus = "pending_payment" | "processing" | "shipped" | "delivered";
-export type Order = { id: string; auctionId?: string; title: string; image?: string; hammer: number; status: OrderStatus; date: string };
+export type Order = { id: string; auctionId?: string; title: string; image?: string | undefined; hammer: number; status: OrderStatus; date: string };
 
 type S = { user: Profile | null; orders: Order[] };
 const KEY = "auctra-demo-session";
