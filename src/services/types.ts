@@ -32,7 +32,7 @@ export interface BiddingService {
 }
 
 export interface OrderService {
-  createFromWin(input: { auctionId: string; title: string; image?: string; hammer: number }): Promise<Result<{ orderId: string }>>;
+  createFromWin(input: { auctionId: string; title: string; image?: string | undefined; hammer: number }): Promise<Result<{ orderId: string }>>;
 }
 
 /** AI must never place bids or take account actions. */

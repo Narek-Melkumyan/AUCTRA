@@ -5,6 +5,6 @@
 import { demoServices } from "./demo";
 import type { Services } from "./types";
 
-export const API_MODE = (import.meta.env.VITE_API_MODE as string | undefined) ?? "demo";
+export const API_MODE = (import.meta.env["VITE_API_MODE"] as string | undefined) ?? "demo";
 export const services: Services = demoServices;
 export type * from "./types";
