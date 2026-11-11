@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BidsRouteImport } from './routes/bids'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as LiveRouteImport } from './routes/live'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as SellRouteImport } from './routes/sell'
+import { Route as WatchlistRouteImport } from './routes/watchlist'
 import { Route as ItemIdRouteImport } from './routes/item.$id'
 import { Route as RoomIdRouteImport } from './routes/room.$id'
 
@@ -26,6 +30,16 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BidsRoute = BidsRouteImport.update({
+  id: '/bids',
+  path: '/bids',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreRoute = ExploreRouteImport.update({
@@ -43,9 +57,19 @@ const LiveRoute = LiveRouteImport.update({
   path: '/live',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SellRoute = SellRouteImport.update({
   id: '/sell',
   path: '/sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchlistRoute = WatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ItemIdRoute = ItemIdRouteImport.update({
@@ -62,20 +86,28 @@ const RoomIdRoute = RoomIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/bids': typeof BidsRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
   '/how-it-works': typeof HowItWorksRoute
   '/live': typeof LiveRoute
+  '/notifications': typeof NotificationsRoute
   '/sell': typeof SellRoute
+  '/watchlist': typeof WatchlistRoute
   '/item/$id': typeof ItemIdRoute
   '/room/$id': typeof RoomIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/bids': typeof BidsRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
   '/how-it-works': typeof HowItWorksRoute
   '/live': typeof LiveRoute
+  '/notifications': typeof NotificationsRoute
   '/sell': typeof SellRoute
+  '/watchlist': typeof WatchlistRoute
   '/item/$id': typeof ItemIdRoute
   '/room/$id': typeof RoomIdRoute
 }
@@ -83,10 +115,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/bids': typeof BidsRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
   '/how-it-works': typeof HowItWorksRoute
   '/live': typeof LiveRoute
+  '/notifications': typeof NotificationsRoute
   '/sell': typeof SellRoute
+  '/watchlist': typeof WatchlistRoute
   '/item/$id': typeof ItemIdRoute
   '/room/$id': typeof RoomIdRoute
 }
@@ -95,30 +131,42 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/bids'
+    | '/dashboard'
     | '/explore'
     | '/how-it-works'
     | '/live'
+    | '/notifications'
     | '/sell'
+    | '/watchlist'
     | '/item/$id'
     | '/room/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
+    | '/bids'
+    | '/dashboard'
     | '/explore'
     | '/how-it-works'
     | '/live'
+    | '/notifications'
     | '/sell'
+    | '/watchlist'
     | '/item/$id'
     | '/room/$id'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/bids'
+    | '/dashboard'
     | '/explore'
     | '/how-it-works'
     | '/live'
+    | '/notifications'
     | '/sell'
+    | '/watchlist'
     | '/item/$id'
     | '/room/$id'
   fileRoutesById: FileRoutesById
@@ -126,10 +174,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  BidsRoute: typeof BidsRoute
+  DashboardRoute: typeof DashboardRoute
   ExploreRoute: typeof ExploreRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LiveRoute: typeof LiveRoute
+  NotificationsRoute: typeof NotificationsRoute
   SellRoute: typeof SellRoute
+  WatchlistRoute: typeof WatchlistRoute
   ItemIdRoute: typeof ItemIdRoute
   RoomIdRoute: typeof RoomIdRoute
 }
@@ -148,6 +200,20 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bids': {
+      id: '/bids'
+      path: '/bids'
+      fullPath: '/bids'
+      preLoaderRoute: typeof BidsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore': {
@@ -171,11 +237,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LiveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sell': {
       id: '/sell'
       path: '/sell'
       fullPath: '/sell'
       preLoaderRoute: typeof SellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watchlist': {
+      id: '/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof WatchlistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/item/$id': {
@@ -198,10 +278,14 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  BidsRoute: BidsRoute,
+  DashboardRoute: DashboardRoute,
   ExploreRoute: ExploreRoute,
   HowItWorksRoute: HowItWorksRoute,
   LiveRoute: LiveRoute,
+  NotificationsRoute: NotificationsRoute,
   SellRoute: SellRoute,
+  WatchlistRoute: WatchlistRoute,
   ItemIdRoute: ItemIdRoute,
   RoomIdRoute: RoomIdRoute,
 }
