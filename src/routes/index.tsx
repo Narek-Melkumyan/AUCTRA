@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, Eye, Gavel, Lock, Scale, Search, ShieldCheck, Sparkles, Trophy, UserCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { categories, collections, images } from "@/lib/auctions";
 import { useRooms } from "@/lib/auction-store";
 import { AuctionCard, Countdown, SectionHeading } from "@/components/auction/bits";
@@ -19,163 +19,137 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const wrap = "mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10";
+const wrap = "mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8";
 
 function Home() {
   const rooms = Object.values(useRooms());
   const live = rooms.filter((r) => r.status === "live");
-  const ending = [...live].sort((a, b) => a.endsAt - b.endsAt).slice(0, 4);
+  const ending = [...live].sort((a, b) => a.endsAt - b.endsAt).slice(0, 5);
+  const feature = live[0];
 
   return (
     <>
       {/* HERO */}
-      <section className="relative -mt-16 overflow-hidden bg-hero pt-16">
-        <div className={`${wrap} grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_1fr] lg:py-24`}>
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <p className="mb-6 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium text-muted-foreground">
-              <span className="size-1.5 rounded-full bg-live animate-live" /> {live.length} auctions live right now
+      <section className="border-b">
+        <div className={`${wrap} grid gap-10 py-12 lg:grid-cols-12 lg:gap-12 lg:py-20`}>
+          <div className="flex flex-col justify-center lg:col-span-5">
+            <p className="mb-5 inline-flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-live" /> {live.length} auctions live now
             </p>
-            <h1 className="font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.95]">
-              Extraordinary Finds.
+            <h1 className="text-[clamp(2.25rem,4.4vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.035em]">
+              Extraordinary finds.
               <br />
-              <span className="italic text-gold-gradient">Unmatched</span> Possibilities.
+              <span className="text-muted-foreground">Unmatched possibilities.</span>
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-muted-foreground">Discover, bid, and win across the world's most exciting online auctions.</p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/live" className="inline-flex h-13 items-center gap-2 rounded-full bg-primary px-7 py-4 font-semibold text-primary-foreground transition hover:shadow-gold">Explore Live Auctions <ArrowRight className="size-4" /></Link>
-              <Link to="/how-it-works" className="inline-flex h-13 items-center rounded-full border px-7 py-4 font-semibold hover:bg-accent">How It Works</Link>
+            <p className="mt-5 max-w-md text-base text-muted-foreground">Bid on authenticated cars, watches, property, jewelry and art — from verified sellers, in real time.</p>
+            <div className="mt-8 flex flex-wrap items-center gap-5">
+              <Link to="/live" className="inline-flex h-11 items-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition hover:opacity-90">Explore live auctions <ArrowRight className="size-4" /></Link>
+              <Link to="/how-it-works" className="text-sm font-medium underline-offset-4 hover:underline">How it works</Link>
             </div>
           </div>
-          <div className="relative h-[440px] sm:h-[540px]">
-            <img src={images.car} alt="Grand tourer coupé" width={1280} height={776} className="absolute left-0 top-[18%] w-[78%] rounded-3xl border object-cover shadow-card" />
-            <img src={images.watch} alt="Steel diver watch" loading="lazy" className="absolute right-0 top-0 w-[40%] animate-float rounded-3xl border object-cover shadow-card" />
-            <img src={images.house} alt="Modern villa" loading="lazy" className="absolute bottom-0 right-[4%] w-[46%] rounded-3xl border object-cover shadow-card" />
-            <img src={images.jewelry} alt="Diamond necklace" loading="lazy" className="absolute bottom-[4%] left-[6%] w-[26%] animate-float rounded-2xl border object-cover shadow-card [animation-delay:1.5s]" />
-            <img src={images.art} alt="Abstract painting" loading="lazy" className="absolute right-[38%] top-[2%] hidden w-[20%] rounded-2xl border object-cover shadow-card sm:block" />
+          <div className="grid grid-cols-6 grid-rows-2 gap-3 lg:col-span-7">
+            <figure className="relative col-span-6 row-span-2 overflow-hidden rounded-lg bg-muted sm:col-span-4">
+              <img src={images.car} alt="Grand tourer coupé" width={1280} height={776} className="h-full min-h-[280px] w-full object-cover" />
+              {feature && (
+                <Link to="/room/$id" params={{ id: feature.id }} className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-md bg-background/95 px-3 py-2.5 text-sm">
+                  <span className="min-w-0 truncate font-medium">{feature.title}</span>
+                  <span className="shrink-0 tabular text-muted-foreground">{`$${feature.currentBid.toLocaleString()}`}</span>
+                </Link>
+              )}
+            </figure>
+            <img src={images.watch} alt="Steel diver watch" loading="lazy" className="col-span-2 hidden h-full w-full rounded-lg object-cover sm:block" />
+            <img src={images.art} alt="Abstract painting" loading="lazy" className="col-span-2 hidden h-full w-full rounded-lg object-cover sm:block" />
           </div>
-        </div>
-        <div className={`${wrap} pb-16`}>
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border md:grid-cols-4">
-            {[["12,500+", "Active Auctions"], ["150K+", "Registered Bidders"], ["45+", "Countries"], ["$250M+", "Auction Volume"]].map(([n, l]) => (
-              <div key={l} className="bg-background p-6">
-                <p className="font-display text-4xl sm:text-5xl">{n}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{l}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-2 text-xs text-muted-foreground">Illustrative demo figures, not verified platform data.</p>
-        </div>
-      </section>
-
-      {/* LIVE */}
-      <section className={`${wrap} py-16`}>
-        <SectionHeading eyebrow="Happening now" title="Live Auctions" action={<Link to="/live" className="inline-flex items-center gap-1 text-sm font-semibold text-primary">View all <ArrowRight className="size-4" /></Link>} />
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {live.slice(0, 8).map((r) => <AuctionCard key={r.id} room={r} />)}
         </div>
       </section>
 
       {/* CATEGORIES */}
-      <section className={`${wrap} py-16`}>
-        <SectionHeading eyebrow="Browse" title="Popular Categories" />
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {categories.map((c, i) => (
-            <Link key={c.slug} to="/explore" search={{ category: c.name }} className={`group relative overflow-hidden rounded-2xl border ${i === 0 ? "md:col-span-2 md:row-span-2" : ""}`}>
-              <img src={c.image} alt={c.name} loading="lazy" className="aspect-square h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-fade" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <p className={`font-display ${i === 0 ? "text-4xl" : "text-2xl"}`}>{c.name}</p>
-                <p className="text-sm text-muted-foreground">{c.count.toLocaleString()} lots</p>
-              </div>
+      <section className={`${wrap} pt-10`}>
+        <nav aria-label="Categories" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4">
+          {categories.map((c) => (
+            <Link key={c.slug} to="/explore" search={{ category: c.name }} className="group flex shrink-0 items-center gap-3 rounded-lg border bg-card py-1.5 pl-1.5 pr-4 transition hover:bg-accent">
+              <img src={c.image} alt="" loading="lazy" className="size-9 rounded-md object-cover" />
+              <span className="text-sm font-medium">{c.name}</span>
+              <span className="text-xs text-muted-foreground tabular">{c.count.toLocaleString()}</span>
             </Link>
           ))}
+        </nav>
+      </section>
+
+      {/* LIVE */}
+      <section className={`${wrap} py-14`}>
+        <SectionHeading eyebrow="Happening now" title="Live auctions" action={<Link to="/live" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">View all <ArrowRight className="size-4" /></Link>} />
+        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-4">
+          {live.slice(0, 8).map((r) => <AuctionCard key={r.id} room={r} />)}
         </div>
       </section>
 
-      {/* ENDING SOON */}
-      <section className="border-y bg-surface py-16">
-        <div className={wrap}>
-          <SectionHeading eyebrow="Final moments" title="Ending Soon" />
-          <div className="grid gap-4 md:grid-cols-2">
+      {/* ENDING SOON + ASSISTANT */}
+      <section className={`${wrap} grid gap-12 pb-16 lg:grid-cols-12`}>
+        <div className="lg:col-span-7">
+          <SectionHeading eyebrow="Final moments" title="Ending soon" />
+          <ul className="divide-y">
             {ending.map((r) => (
-              <Link key={r.id} to="/room/$id" params={{ id: r.id }} className="group flex items-center gap-4 rounded-2xl border bg-card p-3 transition hover:border-primary/40">
-                <img src={r.images[0]} alt="" loading="lazy" className="size-24 rounded-xl object-cover sm:size-28" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">{r.category}</p>
-                  <p className="truncate text-lg font-semibold">{r.title}</p>
-                  <p className="text-sm text-muted-foreground">Current <span className="font-bold text-foreground tabular">${r.currentBid.toLocaleString()}</span></p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-muted-foreground">Ends in</p>
-                  <Countdown room={r} className="font-display text-3xl text-live" />
-                </div>
+              <li key={r.id}>
+                <Link to="/room/$id" params={{ id: r.id }} className="group flex items-center gap-4 py-3">
+                  <img src={r.images[0]} alt="" loading="lazy" className="size-14 rounded-md object-cover" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium group-hover:underline underline-offset-4">{r.title}</p>
+                    <p className="text-xs text-muted-foreground">{r.category} · {r.location}</p>
+                  </div>
+                  <p className="hidden w-28 text-right text-sm tabular sm:block">{`$${r.currentBid.toLocaleString()}`}</p>
+                  <Countdown room={r} className="w-20 text-right text-sm text-live" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="lg:col-span-5">
+          <SectionHeading eyebrow="Questions about a lot?" title="Ask the AUCTRA assistant" />
+          <div className="h-[420px] overflow-hidden rounded-lg border bg-card">
+            <AiChat compact />
+          </div>
+        </div>
+      </section>
+
+      {/* COLLECTIONS */}
+      <section className="border-t bg-surface py-14">
+        <div className={wrap}>
+          <SectionHeading eyebrow="Curated" title="Featured collections" />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {collections.slice(0, 4).map((c) => (
+              <Link key={c.name} to="/explore" className="group">
+                <img src={c.image} alt={c.name} loading="lazy" className="aspect-[4/5] w-full rounded-lg object-cover transition group-hover:opacity-90" />
+                <p className="mt-3 text-sm font-medium">{c.name}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{c.blurb}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* COLLECTIONS */}
-      <section className={`${wrap} py-16`}>
-        <SectionHeading eyebrow="Curated" title="Featured Collections" />
-        <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
-          {collections.map((c) => (
-            <Link key={c.name} to="/explore" className="group relative w-72 shrink-0 snap-start overflow-hidden rounded-3xl border sm:w-80">
-              <img src={c.image} alt={c.name} loading="lazy" className="aspect-[3/4] w-full object-cover transition duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-fade" />
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <p className="font-display text-3xl">{c.name}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{c.blurb}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* HOW */}
-      <section className={`${wrap} py-16`}>
-        <SectionHeading eyebrow="Simple by design" title="How It Works" />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            [Search, "Discover", "Browse thousands of curated lots across every category."],
-            [UserCheck, "Register & Verify", "Create an account and confirm your identity once."],
-            [Gavel, "Place Your Bid", "Join live rooms and bid in real time with confidence."],
-            [Trophy, "Win & Checkout", "Pay securely and arrange shipping or pickup."],
-          ].map(([Icon, t, d], i) => {
-            const I = Icon as typeof Search;
-            return (
-              <div key={t as string} className="rounded-2xl border bg-card p-6">
-                <div className="flex items-center justify-between"><I className="size-6 text-primary" /><span className="font-display text-4xl text-muted-foreground/40">0{i + 1}</span></div>
-                <p className="mt-6 text-lg font-semibold">{t as string}</p>
-                <p className="mt-2 text-sm text-muted-foreground">{d as string}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* TRUST */}
-      <section className={`${wrap} py-8`}>
-        <div className="grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {[[BadgeCheck, "Verified Sellers"], [Lock, "Secure Transactions"], [Scale, "Transparent Bidding"], [ShieldCheck, "Bidder Protection"]].map(([Icon, t]) => {
-            const I = Icon as typeof Lock;
-            return <div key={t as string} className="flex items-center gap-3 bg-background p-6"><I className="size-5 text-primary" /><span className="font-semibold">{t as string}</span></div>;
-          })}
-        </div>
-      </section>
-
-      {/* AI */}
-      <section className={`${wrap} py-16`}>
-        <div className="grid items-center gap-10 overflow-hidden rounded-3xl border bg-surface p-6 sm:p-10 lg:grid-cols-2 lg:p-16">
-          <div>
-            <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary"><Sparkles className="size-4" /> AUCTRA AI</p>
-            <h2 className="font-display text-5xl leading-tight sm:text-6xl">Your Personal Auction Expert.</h2>
-            <p className="mt-5 max-w-md text-muted-foreground">Discover products, compare listings, understand auction fees, and navigate bidding — in plain language. Informational only; AI never bids for you.</p>
-            <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground"><Eye className="size-4" /> Try it — it's live on this page.</div>
+      {/* PROCESS */}
+      <section className={`${wrap} py-14`}>
+        <div className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <h2 className="text-2xl font-medium tracking-tight">Bidding, made transparent.</h2>
+            <p className="mt-3 text-sm text-muted-foreground">Every seller is verified and every bid is recorded in the public history of the lot.</p>
+            <Link to="/how-it-works" className="mt-4 inline-flex items-center gap-1 text-sm font-medium hover:underline underline-offset-4">Read the full process <ArrowRight className="size-4" /></Link>
           </div>
-          <div className="h-[460px] overflow-hidden rounded-2xl border bg-popover shadow-card">
-            <AiChat compact />
-          </div>
+          <ol className="grid gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-2 lg:col-span-8">
+            {[
+              ["Discover", "Browse curated lots with condition reports and seller history."],
+              ["Register", "Create an account and verify your identity once."],
+              ["Bid", "Join a live room and bid in clear, fixed increments."],
+              ["Settle", "Pay securely and arrange insured shipping or pickup."],
+            ].map(([t, d], i) => (
+              <li key={t} className="bg-card p-5">
+                <p className="text-xs text-muted-foreground tabular">{String(i + 1).padStart(2, "0")}</p>
+                <p className="mt-3 text-sm font-medium">{t}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{d}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </>

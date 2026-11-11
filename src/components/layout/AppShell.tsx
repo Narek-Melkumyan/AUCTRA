@@ -12,8 +12,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 export function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2" aria-label="AUCTRA home">
-      <span className="grid size-8 place-items-center rounded-lg bg-gold-gradient font-display text-xl text-primary-foreground">A</span>
-      <span className="text-lg font-extrabold tracking-[0.25em]">AUCTRA</span>
+      <span className="grid size-8 place-items-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">A</span>
+      <span className="text-[15px] font-semibold tracking-[0.14em]">AUCTRA</span>
     </Link>
   );
 }
@@ -49,7 +49,7 @@ function Notifications() {
     <Popover onOpenChange={(o) => !o && markAllRead()}>
       <PopoverTrigger aria-label="Notifications" className="relative grid size-10 place-items-center rounded-full hover:bg-accent">
         <Bell className="size-5" />
-        {unread > 0 && <span className="absolute right-1.5 top-1.5 grid min-w-4 place-items-center rounded-full bg-live px-1 text-[10px] font-bold text-live-foreground">{unread}</span>}
+        {unread > 0 && <span className="absolute right-1.5 top-1.5 grid min-w-4 place-items-center rounded-full bg-live px-1 text-[10px] font-semibold text-live-foreground">{unread}</span>}
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between border-b px-4 py-3">
@@ -94,13 +94,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
       <div className="flex items-center justify-center gap-3 bg-primary/10 px-4 py-1.5 text-xs text-foreground">
-        <span className="font-bold uppercase tracking-wider text-primary">Demo mode</span>
+        <span className="font-semibold uppercase tracking-wider text-primary">Demo mode</span>
         <span className="hidden text-muted-foreground sm:inline">Bids, timers and activity are simulated locally — not real auction data.</span>
         <button onClick={() => { resetDemo(); toast.success("Demo reset"); }} className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
           <RotateCcw className="size-3" /> Reset demo
         </button>
       </div>
-      <header className={cn("sticky top-0 z-40 transition-all duration-300", scrolled ? "glass border-b" : "bg-transparent")}>
+      <header className={cn("sticky top-0 z-40 transition-all duration-300", scrolled ? "border-b bg-background/95 backdrop-blur" : "border-b bg-background")}>
         <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-4 px-4 sm:px-6 lg:px-10">
           <button className="grid size-10 place-items-center rounded-full hover:bg-accent lg:hidden" aria-label="Open menu" onClick={() => setMenu(true)}><Menu className="size-5" /></button>
           <Logo />
@@ -131,7 +131,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Notifications />
             <Link to="/explore" search={{ watchlist: true }} aria-label="Watchlist" className="relative hidden size-10 place-items-center rounded-full hover:bg-accent sm:grid">
               <Heart className="size-5" />
-              {watchCount > 0 && <span className="absolute right-1 top-1 text-[10px] font-bold text-primary">{watchCount}</span>}
+              {watchCount > 0 && <span className="absolute right-1 top-1 text-[10px] font-semibold text-primary">{watchCount}</span>}
             </Link>
             <button onClick={toggle} aria-label="Toggle theme" className="grid size-10 place-items-center rounded-full hover:bg-accent">{light ? <Moon className="size-5" /> : <Sun className="size-5" />}</button>
             <button onClick={() => toast("Accounts arrive once a backend is connected.", { description: "This demo runs without sign-in." })} className="ml-2 hidden h-10 rounded-full bg-foreground px-5 text-sm font-semibold text-background sm:block">Sign in</button>
@@ -162,14 +162,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Floating AI button (desktop) */}
       {!ai && !inRoom && (
-        <button onClick={() => setAi(true)} className="fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-gold-gradient px-5 py-3.5 text-sm font-bold text-primary-foreground shadow-gold transition hover:scale-105 lg:flex">
+        <button onClick={() => setAi(true)} className="fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-pop transition lg:flex">
           <Sparkles className="size-4" /> Ask AUCTRA AI
         </button>
       )}
       {ai && (
         <div className="fixed inset-0 z-50 flex flex-col bg-popover sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[600px] sm:w-[400px] sm:overflow-hidden sm:rounded-2xl sm:border sm:shadow-card animate-in fade-in slide-in-from-bottom-4">
           <div className="flex items-center gap-3 border-b px-4 py-3">
-            <div className="grid size-9 place-items-center rounded-full bg-gold-gradient text-primary-foreground"><Sparkles className="size-4" /></div>
+            <div className="grid size-8 place-items-center rounded-md border text-muted-foreground"><Sparkles className="size-4" /></div>
             <div className="flex-1"><p className="font-semibold">AUCTRA AI</p><p className="text-xs text-success">Online · demo responses</p></div>
             <button onClick={() => setAi(false)} aria-label="Close assistant" className="grid size-9 place-items-center rounded-full hover:bg-accent"><X className="size-5" /></button>
           </div>

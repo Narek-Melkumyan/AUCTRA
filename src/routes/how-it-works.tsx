@@ -36,7 +36,7 @@ function How() {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between"><span className="text-muted-foreground">Buyer's premium</span><span className="tabular">{fmtFull(f.premium)}</span></div>
             <div className="flex justify-between"><span className="text-muted-foreground">Platform fee</span><span className="tabular">{fmtFull(f.platform)}</span></div>
-            <div className="flex justify-between border-t pt-2 text-lg font-bold"><span>Total</span><span className="tabular">{fmtFull(f.total)}</span></div>
+            <div className="flex justify-between border-t pt-2 text-lg font-semibold"><span>Total</span><span className="tabular">{fmtFull(f.total)}</span></div>
           </div>
         </div>
       </section>
