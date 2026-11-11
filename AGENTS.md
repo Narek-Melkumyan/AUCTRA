@@ -32,3 +32,4 @@ use the editor.
 - Auction state lives in a client-side demo store (src/lib/auction-store.ts); UI reads it via hooks so a server-authoritative WebSocket feed can replace the simulation later without touching pages.
 - AI assistant responses come from a local mock (src/lib/ai-mock.ts) that must never place bids; swap in a real AI call behind the same function.
 - Demo sign-in, profile and orders live in src/lib/demo-session.ts (local only, not auth); account pages read it via useSession so a real backend session can replace it.
+- UI performs auth, auction, bidding, order and AI calls through `services` (src/services); `types.ts` holds the contracts and `demo.ts` wraps the local simulation, so a REST/Socket.IO backend is added as another implementation without editing pages. Live state is still read via store hooks until a socket-fed store replaces the simulation.

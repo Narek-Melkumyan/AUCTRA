@@ -253,9 +253,9 @@ function ActivityPanel({ room }: { room: RoomState }) {
 
   return (
     <section className="flex h-[560px] flex-col overflow-hidden border-y bg-card sm:rounded-2xl sm:border xl:sticky xl:top-20 xl:h-[calc(100vh-7rem)]">
-      <div className="grid grid-cols-4 border-b text-sm">
+      <div role="tablist" aria-label="Room activity" className="grid grid-cols-4 border-b text-sm">
         {([["bids", "Bids"], ["chat", "Chat"], ["people", "People"], ["ai", "AI"]] as const).map(([k, l]) => (
-          <button key={k} onClick={() => setTab(k)} className={cn("relative py-3.5 font-medium text-muted-foreground", tab === k && "text-foreground")}>
+          <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={cn("relative py-3.5 font-medium text-muted-foreground", tab === k && "text-foreground")}>
             {l}{tab === k && <span className="absolute inset-x-4 bottom-0 h-0.5 rounded bg-primary" />}
           </button>
         ))}
