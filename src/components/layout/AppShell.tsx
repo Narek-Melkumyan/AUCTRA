@@ -12,8 +12,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 export function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2" aria-label="AUCTRA home">
-      <span className="grid size-8 place-items-center rounded-lg bg-gold-gradient font-display text-xl text-primary-foreground">A</span>
-      <span className="text-lg font-semibold tracking-[0.18em]">AUCTRA</span>
+      <span className="grid size-8 place-items-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">A</span>
+      <span className="text-[15px] font-semibold tracking-[0.14em]">AUCTRA</span>
     </Link>
   );
 }
@@ -100,7 +100,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <RotateCcw className="size-3" /> Reset demo
         </button>
       </div>
-      <header className={cn("sticky top-0 z-40 transition-all duration-300", scrolled ? "glass border-b" : "bg-transparent")}>
+      <header className={cn("sticky top-0 z-40 transition-all duration-300", scrolled ? "border-b bg-background/95 backdrop-blur" : "border-b bg-background")}>
         <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-4 px-4 sm:px-6 lg:px-10">
           <button className="grid size-10 place-items-center rounded-full hover:bg-accent lg:hidden" aria-label="Open menu" onClick={() => setMenu(true)}><Menu className="size-5" /></button>
           <Logo />
@@ -162,14 +162,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Floating AI button (desktop) */}
       {!ai && !inRoom && (
-        <button onClick={() => setAi(true)} className="fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-gold-gradient px-5 py-3.5 text-sm font-semibold text-primary-foreground shadow-gold transition lg:flex">
+        <button onClick={() => setAi(true)} className="fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-pop transition lg:flex">
           <Sparkles className="size-4" /> Ask AUCTRA AI
         </button>
       )}
       {ai && (
         <div className="fixed inset-0 z-50 flex flex-col bg-popover sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[600px] sm:w-[400px] sm:overflow-hidden sm:rounded-2xl sm:border sm:shadow-card animate-in fade-in slide-in-from-bottom-4">
           <div className="flex items-center gap-3 border-b px-4 py-3">
-            <div className="grid size-9 place-items-center rounded-full bg-gold-gradient text-primary-foreground"><Sparkles className="size-4" /></div>
+            <div className="grid size-8 place-items-center rounded-md border text-muted-foreground"><Sparkles className="size-4" /></div>
             <div className="flex-1"><p className="font-semibold">AUCTRA AI</p><p className="text-xs text-success">Online · demo responses</p></div>
             <button onClick={() => setAi(false)} aria-label="Close assistant" className="grid size-9 place-items-center rounded-full hover:bg-accent"><X className="size-5" /></button>
           </div>

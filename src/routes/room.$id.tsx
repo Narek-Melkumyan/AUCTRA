@@ -66,7 +66,7 @@ function ItemPanel({ room }: { room: RoomState }) {
         <div className="absolute left-3 top-3 flex gap-2"><StatusBadge room={room} /></div>
         <div className="absolute right-3 top-3 flex gap-2">
           <WatchButton id={room.id} />
-          <button onClick={() => setZoom(true)} aria-label="Zoom image" className="grid size-9 place-items-center rounded-full glass"><Maximize2 className="size-4" /></button>
+          <button onClick={() => setZoom(true)} aria-label="Zoom image" className="grid size-9 place-items-center rounded-md glass"><Maximize2 className="size-4" /></button>
         </div>
       </div>
       {room.images.length > 1 && (
@@ -172,7 +172,7 @@ function BidPanel({ room }: { room: RoomState }) {
       <p className="mt-3 text-center text-xs text-muted-foreground">Minimum next bid <span className="font-semibold text-foreground">{fmtFull(min)}</span></p>
 
       {/* Desktop main button */}
-      <button disabled={disabled} onClick={() => request(min)} className="mt-4 hidden h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-lg font-semibold text-primary-foreground transition hover:shadow-gold disabled:opacity-40 lg:flex">
+      <button disabled={disabled} onClick={() => request(min)} className="mt-4 hidden h-14 w-full items-center justify-center gap-2 rounded-md bg-primary text-base font-medium text-primary-foreground transition disabled:opacity-40 lg:flex">
         <Gavel className="size-5" /> BID NOW · {fmtFull(min)}
       </button>
 

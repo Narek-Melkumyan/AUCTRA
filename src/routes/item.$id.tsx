@@ -58,7 +58,7 @@ function Item() {
             </div>
             <p className={cn("mt-3 text-sm", r.reserve === "met" ? "text-success" : r.reserve === "not-met" ? "text-live" : "text-muted-foreground")}>{r.reserve === "met" ? "Reserve met" : r.reserve === "not-met" ? "Reserve not yet met" : "No reserve"} · {r.bids.length} bids · {r.watchers} watching</p>
             {r.buyNow && <p className="mt-1 text-sm text-muted-foreground">Buy Now available at {fmtFull(r.buyNow)}</p>}
-            <Link to="/room/$id" params={{ id: r.id }} className="mt-5 flex h-13 items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-semibold text-primary-foreground hover:shadow-gold"><Radio className="size-5" /> View Live Auction Room</Link>
+            <Link to="/room/$id" params={{ id: r.id }} className="mt-5 flex h-13 items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-semibold text-primary-foreground"><Radio className="size-5" /> View Live Auction Room</Link>
             <div className="mt-3 flex gap-2">
               <WatchButton id={r.id} className="size-12 border" />
               <button onClick={() => { navigator.clipboard?.writeText(window.location.href); toast.success("Link copied"); }} className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border font-semibold"><Share2 className="size-4" /> Share</button>

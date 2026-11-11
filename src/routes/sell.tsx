@@ -30,7 +30,7 @@ function Sell() {
     <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Seller dashboard · demo data</p><h1 className="mt-2 font-display text-5xl sm:text-4xl">Good evening, Riviera Motors</h1></div>
-        <button onClick={() => setWizard(true)} className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 font-semibold text-primary-foreground hover:shadow-gold"><Plus className="size-4" /> Create listing</button>
+        <button onClick={() => setWizard(true)} className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 font-semibold text-primary-foreground"><Plus className="size-4" /> Create listing</button>
       </div>
       {wizard ? <Wizard onClose={() => setWizard(false)} /> : (
         <>
