@@ -15,3 +15,12 @@ describe("App routing", () => {
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
 });
+
+describe("Account and checkout pages exist", () => {
+  const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+  for (const path of ["/login", "/dashboard", "/bids", "/watchlist", "/notifications", "/assistant", "/settings", "/orders", "/help", "/checkout/a1001"]) {
+    it(`matches ${path}`, () => {
+      expect(router.matchRoutes(path).at(-1)?.routeId).not.toBe(rootRouteId);
+    });
+  }
+});
