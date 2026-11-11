@@ -194,7 +194,11 @@ function BidPanel({ room }: { room: RoomState }) {
             <p className="mt-3 font-display text-4xl">{top?.mine ? "You won!" : "Auction closed"}</p>
             <p className="mt-2 text-muted-foreground">{top ? <>Winning bid <span className="font-semibold text-foreground">{fmtFull(room.currentBid)}</span> by {top.mine ? "you" : top.user}</> : "No bids were placed."}</p>
             {room.reserve === "not-met" && <p className="mt-1 text-sm text-live">Reserve not met — seller may review offers.</p>}
-            <Link to="/live" className="mt-5 inline-flex h-11 items-center rounded-xl bg-primary px-5 font-semibold text-primary-foreground">Browse live rooms</Link>
+            {top?.mine ? (
+              <Link to="/checkout/$id" params={{ id: room.id }} className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">Continue to checkout</Link>
+            ) : (
+              <Link to="/live" className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">Browse live rooms</Link>
+            )}
           </div>
         </div>
       )}

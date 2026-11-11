@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { categories } from "@/lib/auctions";
 import { markAllRead, resetDemo, useAuctionStore } from "@/lib/auction-store";
 import { AiChat } from "@/components/ai/AiChat";
+import { useSession } from "@/lib/demo-session";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -54,7 +55,7 @@ function Notifications() {
       <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between border-b px-4 py-3">
           <p className="font-semibold">Notifications</p>
-          <button onClick={markAllRead} className="text-xs text-primary">Mark all read</button>
+          <div className="flex gap-3"><button onClick={markAllRead} className="text-xs text-muted-foreground hover:text-foreground">Mark all read</button><Link to="/notifications" className="text-xs font-medium">View all</Link></div>
         </div>
         <div className="max-h-80 overflow-y-auto">
           {notices.length === 0 ? (
@@ -129,12 +130,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <button onClick={() => setSearch(true)} aria-label="Search" className="grid size-10 place-items-center rounded-full hover:bg-accent md:hidden"><Search className="size-5" /></button>
             <button onClick={() => setAi(true)} aria-label="AUCTRA AI" className="hidden size-10 place-items-center rounded-full hover:bg-accent sm:grid"><Sparkles className="size-5 text-primary" /></button>
             <Notifications />
-            <Link to="/explore" search={{ watchlist: true }} aria-label="Watchlist" className="relative hidden size-10 place-items-center rounded-full hover:bg-accent sm:grid">
+            <Link to="/watchlist" aria-label="Watchlist" className="relative hidden size-10 place-items-center rounded-full hover:bg-accent sm:grid">
               <Heart className="size-5" />
               {watchCount > 0 && <span className="absolute right-1 top-1 text-[10px] font-semibold text-primary">{watchCount}</span>}
             </Link>
             <button onClick={toggle} aria-label="Toggle theme" className="grid size-10 place-items-center rounded-full hover:bg-accent">{light ? <Moon className="size-5" /> : <Sun className="size-5" />}</button>
-            <button onClick={() => toast("Accounts arrive once a backend is connected.", { description: "This demo runs without sign-in." })} className="ml-2 hidden h-10 rounded-full bg-foreground px-5 text-sm font-semibold text-background sm:block">Sign in</button>
+            <AccountButton />
           </div>
         </div>
       </header>
@@ -184,7 +185,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="space-y-1">
             {nav.map((n) => <Link key={n.to} to={n.to} className="block rounded-xl px-3 py-3 text-base font-medium hover:bg-accent">{n.label}</Link>)}
           </div>
-          <p className="mb-2 mt-6 px-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Categories</p>
+          <p className="mb-2 mt-6 px-3 text-xs text-muted-foreground">Account</p>
+          <div className="space-y-1">
+            {([["/dashboard", "Dashboard"], ["/bids", "My bids"], ["/watchlist", "Watchlist"], ["/orders", "Orders"], ["/notifications", "Notifications"], ["/settings", "Settings"], ["/help", "Help"]] as const).map(([to, l]) => <Link key={to} to={to} className="block rounded-md px-3 py-2 text-sm hover:bg-accent">{l}</Link>)}
+          </div>
+          <p className="mb-2 mt-6 px-3 text-xs text-muted-foreground">Categories</p>
           <div className="grid grid-cols-2 gap-2">
             {categories.map((c) => <Link key={c.slug} to="/explore" search={{ category: c.name }} className="rounded-xl border px-3 py-2.5 text-sm hover:border-primary/50">{c.name}</Link>)}
           </div>
@@ -243,9 +248,9 @@ function Footer() {
         </div>
         {([
           { h: "Marketplace", l: [["Explore", "/explore"], ["Live Now", "/live"], ["Sell an Item", "/sell"]] },
-          { h: "Company", l: [["How It Works", "/how-it-works"], ["Admin demo", "/admin"]] },
-          { h: "Help", l: [["Help Center", "/how-it-works"], ["Fees", "/how-it-works"], ["Auction Rules", "/how-it-works"]] },
-          { h: "Legal", l: [["Terms", "/how-it-works"], ["Privacy", "/how-it-works"]] },
+          { h: "Account", l: [["Dashboard", "/dashboard"], ["My bids", "/bids"], ["Watchlist", "/watchlist"], ["Orders", "/orders"]] },
+          { h: "Help", l: [["Help Center", "/help"], ["Assistant", "/assistant"], ["How It Works", "/how-it-works"]] },
+          { h: "Company", l: [["Admin demo", "/admin"], ["Sign in", "/login"]] },
         ] as const).map((c) => (
           <div key={c.h}>
             <p className="mb-4 text-sm font-semibold">{c.h}</p>
@@ -257,5 +262,13 @@ function Footer() {
       </div>
       <div className="border-t px-4 py-6 text-center text-xs text-muted-foreground">© 2026 AUCTRA. Demo interface — figures and listings are illustrative.</div>
     </footer>
+  );
+}
+
+function AccountButton() {
+  const user = useSession((s) => s.user);
+  if (!user) return <Link to="/login" className="ml-2 hidden h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground sm:inline-flex">Sign in</Link>;
+  return (
+    <Link to="/dashboard" aria-label="Your account" className="ml-2 hidden size-9 place-items-center rounded-md border text-sm font-medium uppercase sm:grid">{user.name.slice(0, 1)}</Link>
   );
 }
