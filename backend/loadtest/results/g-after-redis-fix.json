@@ -1,0 +1,81 @@
+{
+  "startedAt": "2026-11-15T17:21:15.420Z",
+  "node": "v24.12.0",
+  "poolMax": 10,
+  "scenarios": {
+    "G": {
+      "redisOutage": {
+        "bidsDuringOutage": {
+          "201": 5
+        },
+        "bidAfterRecovery": 201,
+        "viewersCaughtUp": true,
+        "recoveryMsFromRedisRestart": 3247,
+        "invariantViolations": {}
+      },
+      "instanceKill": {
+        "firstAttempt": {
+          "network": 100
+        },
+        "retriedOnInstance2": {
+          "OK": 6,
+          "BID_TOO_LOW": 94
+        },
+        "acknowledgedButMissing": 0,
+        "invariantViolations": {}
+      },
+      "reconnect": {
+        "viewers": 200,
+        "atDbVersionAfterReconnect": 200,
+        "reconnectRecoveryMs": 135
+      },
+      "deadline": {
+        "requests": 916,
+        "byStatus": {
+          "201": 27,
+          "409": 63,
+          "422": 826
+        },
+        "byCode": {
+          "OK": 27,
+          "BID_TOO_LOW": 826,
+          "ALREADY_HIGHEST_BIDDER": 3,
+          "AUCTION_ENDED": 60
+        },
+        "serverErrors": 0,
+        "throughputRps": 305.3,
+        "latencyMs": {
+          "n": 916,
+          "p50": 3.3,
+          "p95": 43.1,
+          "p99": 93.2,
+          "max": 101.7
+        },
+        "finalStatus": "SOLD",
+        "orders": 1,
+        "invariantViolations": {}
+      },
+      "settlementRestart": {
+        "settledBeforeKill": 0,
+        "afterRestart": {
+          "SOLD": 30
+        },
+        "orders": 30,
+        "invariantViolations": {}
+      },
+      "durationMs": 18591,
+      "processes": {
+        "67529": {
+          "peakRssMb": 319,
+          "avgCpu": 8,
+          "peakCpu": 24
+        },
+        "67531": {
+          "peakRssMb": 460,
+          "avgCpu": 17,
+          "peakCpu": 64
+        }
+      }
+    }
+  }
+}

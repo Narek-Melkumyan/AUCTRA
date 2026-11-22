@@ -1,0 +1,89 @@
+{
+  "startedAt": "2026-11-15T17:16:50.958Z",
+  "node": "v24.12.0",
+  "poolMax": 10,
+  "scenarios": {
+    "A": {
+      "rounds": 25,
+      "requests": 50,
+      "byStatus": {
+        "201": 25,
+        "422": 25
+      },
+      "byCode": {
+        "OK": 25,
+        "BID_TOO_LOW": 25
+      },
+      "serverErrors": 0,
+      "throughputRps": 50000,
+      "latencyMs": {
+        "n": 50,
+        "p50": 8,
+        "p95": 11.6,
+        "p99": 78.2,
+        "max": 78.2
+      },
+      "invariantViolations": {},
+      "durationMs": 380,
+      "processes": {}
+    },
+    "B": {
+      "requests": 30,
+      "byStatus": {
+        "200": 4,
+        "201": 2,
+        "422": 24
+      },
+      "byCode": {
+        "OK": 6,
+        "BID_TOO_LOW": 24
+      },
+      "serverErrors": 0,
+      "throughputRps": 443.9,
+      "latencyMs": {
+        "n": 30,
+        "p50": 53.8,
+        "p95": 66.6,
+        "p99": 67.2,
+        "max": 67.2
+      },
+      "keyReuse": "IDEMPOTENCY_KEY_REUSED",
+      "acceptedOrder": [
+        "#1 $45000",
+        "#2 $45500",
+        "#3 $48000"
+      ],
+      "replays": 4,
+      "invariantViolations": {},
+      "durationMs": 84,
+      "processes": {}
+    },
+    "C": {
+      "requests": 110,
+      "byStatus": {
+        "200": 3,
+        "201": 4,
+        "422": 103
+      },
+      "byCode": {
+        "OK": 7,
+        "BID_TOO_LOW": 103
+      },
+      "serverErrors": 0,
+      "throughputRps": 878.9,
+      "latencyMs": {
+        "n": 110,
+        "p50": 94.5,
+        "p95": 120.3,
+        "p99": 122.1,
+        "max": 122.5
+      },
+      "wallMs": 125,
+      "acceptedBids": 4,
+      "unexpected": [],
+      "invariantViolations": {},
+      "durationMs": 133,
+      "processes": {}
+    }
+  }
+}

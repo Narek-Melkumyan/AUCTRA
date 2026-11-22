@@ -1,0 +1,62 @@
+{
+  "startedAt": "2026-11-15T17:39:20.178Z",
+  "node": "v24.12.0",
+  "poolMax": 10,
+  "scenarios": {
+    "C": {
+      "requests": 110,
+      "byStatus": {
+        "200": 1,
+        "201": 2,
+        "422": 107
+      },
+      "byCode": {
+        "OK": 3,
+        "BID_TOO_LOW": 107
+      },
+      "serverErrors": 0,
+      "throughputRps": 699,
+      "latencyMs": {
+        "n": 110,
+        "p50": 119.8,
+        "p95": 151.4,
+        "p99": 154,
+        "max": 154.5
+      },
+      "wallMs": 157,
+      "acceptedBids": 2,
+      "burst": 100,
+      "unexpected": [],
+      "invariantViolations": {},
+      "durationMs": 187,
+      "processes": {},
+      "serverMetrics": {
+        "4101": {
+          "auctra_bid_requests_total{outcome=\"ACCEPTED\"}": 2,
+          "auctra_bid_requests_total{outcome=\"BID_TOO_LOW\"}": 99,
+          "auctra_bid_duration_seconds_sum{outcome=\"ACCEPTED\"}": 0.08416499999999996,
+          "auctra_bid_duration_seconds_count{outcome=\"ACCEPTED\"}": 2,
+          "auctra_bid_duration_seconds_sum{outcome=\"BID_TOO_LOW\"}": 0,
+          "auctra_bid_duration_seconds_count{outcome=\"BID_TOO_LOW\"}": 99,
+          "auctra_bid_lock_wait_seconds_sum": 0.0013462500000000547,
+          "auctra_bid_lock_wait_seconds_count": 2,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 0.14816904199999995,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 2,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 5.186269333,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 107,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 0.009408416999999987,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 1,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.031000000000000003,
+          "auctra_outbox_lag_seconds_count": 5,
+          "auctra_process_cpu_seconds_total": 0.555513,
+          "auctra_process_resident_memory_bytes": 441155584,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.051445759,
+          "auctra_db_pool_connections{state=\"total\"}": 10,
+          "auctra_db_pool_connections{state=\"idle\"}": 10,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        }
+      }
+    }
+  }
+}

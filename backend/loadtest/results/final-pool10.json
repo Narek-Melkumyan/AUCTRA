@@ -1,0 +1,579 @@
+{
+  "startedAt": "2026-11-15T17:39:48.192Z",
+  "node": "v24.12.0",
+  "poolMax": 10,
+  "scenarios": {
+    "A": {
+      "rounds": 25,
+      "requests": 50,
+      "byStatus": {
+        "201": 25,
+        "422": 25
+      },
+      "byCode": {
+        "BID_TOO_LOW": 25,
+        "OK": 25
+      },
+      "shedRetryable": 0,
+      "serverErrors": 0,
+      "throughputRps": 50000,
+      "latencyMs": {
+        "n": 50,
+        "p50": 5.9,
+        "p95": 25.9,
+        "p99": 97.1,
+        "max": 97.1
+      },
+      "invariantViolations": {},
+      "durationMs": 395,
+      "processes": {},
+      "serverMetrics": {
+        "4101": {
+          "auctra_bid_requests_total{outcome=\"ACCEPTED\"}": 25,
+          "auctra_bid_requests_total{outcome=\"BID_TOO_LOW\"}": 25,
+          "auctra_bid_duration_seconds_sum{outcome=\"ACCEPTED\"}": 0.1348173360000001,
+          "auctra_bid_duration_seconds_count{outcome=\"ACCEPTED\"}": 25,
+          "auctra_bid_duration_seconds_sum{outcome=\"BID_TOO_LOW\"}": 0,
+          "auctra_bid_duration_seconds_count{outcome=\"BID_TOO_LOW\"}": 25,
+          "auctra_bid_lock_wait_seconds_sum": 0.004873166999999513,
+          "auctra_bid_lock_wait_seconds_count": 25,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 0.2317592919999995,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 25,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 0.2874499190000003,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 25,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.13000000000000003,
+          "auctra_outbox_lag_seconds_count": 49,
+          "auctra_process_cpu_seconds_total": 0.646913,
+          "auctra_process_resident_memory_bytes": 405045248,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.022102015,
+          "auctra_db_pool_connections{state=\"total\"}": 7,
+          "auctra_db_pool_connections{state=\"idle\"}": 7,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        },
+        "4102": {
+          "auctra_bid_lock_wait_seconds_sum": 0,
+          "auctra_bid_lock_wait_seconds_count": 0,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.002,
+          "auctra_outbox_lag_seconds_count": 1,
+          "auctra_process_cpu_seconds_total": 0.291248,
+          "auctra_process_resident_memory_bytes": 410517504,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.017989631,
+          "auctra_db_pool_connections{state=\"total\"}": 1,
+          "auctra_db_pool_connections{state=\"idle\"}": 1,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        }
+      }
+    },
+    "B": {
+      "requests": 30,
+      "byStatus": {
+        "200": 8,
+        "201": 4,
+        "422": 18
+      },
+      "byCode": {
+        "OK": 12,
+        "BID_TOO_LOW": 18
+      },
+      "shedRetryable": 0,
+      "serverErrors": 0,
+      "throughputRps": 525.8,
+      "latencyMs": {
+        "n": 30,
+        "p50": 45.8,
+        "p95": 56.5,
+        "p99": 56.7,
+        "max": 56.7
+      },
+      "keyReuse": "IDEMPOTENCY_KEY_REUSED",
+      "acceptedOrder": [
+        "#1 $45000",
+        "#2 $45500",
+        "#3 $46000",
+        "#4 $47000",
+        "#5 $48000"
+      ],
+      "replays": 8,
+      "invariantViolations": {},
+      "durationMs": 142,
+      "processes": {},
+      "serverMetrics": {
+        "4101": {
+          "auctra_bid_requests_total{outcome=\"ACCEPTED\"}": 30,
+          "auctra_bid_requests_total{outcome=\"BID_TOO_LOW\"}": 31,
+          "auctra_bid_requests_total{outcome=\"REPLAYED\"}": 8,
+          "auctra_bid_duration_seconds_sum{outcome=\"ACCEPTED\"}": 0.23046337800000016,
+          "auctra_bid_duration_seconds_count{outcome=\"ACCEPTED\"}": 30,
+          "auctra_bid_duration_seconds_sum{outcome=\"BID_TOO_LOW\"}": 0,
+          "auctra_bid_duration_seconds_count{outcome=\"BID_TOO_LOW\"}": 31,
+          "auctra_bid_duration_seconds_sum{outcome=\"REPLAYED\"}": 0.2250039180000001,
+          "auctra_bid_duration_seconds_count{outcome=\"REPLAYED\"}": 8,
+          "auctra_bid_lock_wait_seconds_sum": 0.006035041999999522,
+          "auctra_bid_lock_wait_seconds_count": 30,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 0.3519526249999997,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 30,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 1.0649143779999999,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 43,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 0.2846607499999998,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 8,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 0.001476916000000074,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 1,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.15800000000000006,
+          "auctra_outbox_lag_seconds_count": 63,
+          "auctra_process_cpu_seconds_total": 0.7341949999999999,
+          "auctra_process_resident_memory_bytes": 406814720,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.012165119,
+          "auctra_db_pool_connections{state=\"total\"}": 10,
+          "auctra_db_pool_connections{state=\"idle\"}": 10,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        },
+        "4102": {
+          "auctra_bid_lock_wait_seconds_sum": 0,
+          "auctra_bid_lock_wait_seconds_count": 0,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.002,
+          "auctra_outbox_lag_seconds_count": 1,
+          "auctra_process_cpu_seconds_total": 0.293989,
+          "auctra_process_resident_memory_bytes": 402079744,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.012042239,
+          "auctra_db_pool_connections{state=\"total\"}": 1,
+          "auctra_db_pool_connections{state=\"idle\"}": 1,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        }
+      }
+    },
+    "http://127.0.0.1:4102": {
+      "requests": 110,
+      "byStatus": {
+        "200": 2,
+        "201": 2,
+        "422": 106
+      },
+      "byCode": {
+        "BID_TOO_LOW": 106,
+        "OK": 4
+      },
+      "shedRetryable": 0,
+      "serverErrors": 0,
+      "throughputRps": 1126.7,
+      "latencyMs": {
+        "n": 110,
+        "p50": 58.8,
+        "p95": 92.7,
+        "p99": 95.3,
+        "max": 95.9
+      },
+      "wallMs": 98,
+      "acceptedBids": 2,
+      "burst": 100,
+      "unexpected": [],
+      "invariantViolations": {}
+    },
+    "C": {
+      "durationMs": 118,
+      "processes": {},
+      "serverMetrics": {
+        "4101": {
+          "auctra_bid_requests_total{outcome=\"ACCEPTED\"}": 32,
+          "auctra_bid_requests_total{outcome=\"BID_TOO_LOW\"}": 130,
+          "auctra_bid_requests_total{outcome=\"REPLAYED\"}": 8,
+          "auctra_bid_duration_seconds_sum{outcome=\"ACCEPTED\"}": 0.2516096280000002,
+          "auctra_bid_duration_seconds_count{outcome=\"ACCEPTED\"}": 32,
+          "auctra_bid_duration_seconds_sum{outcome=\"BID_TOO_LOW\"}": 0,
+          "auctra_bid_duration_seconds_count{outcome=\"BID_TOO_LOW\"}": 130,
+          "auctra_bid_duration_seconds_sum{outcome=\"REPLAYED\"}": 0.2250039180000001,
+          "auctra_bid_duration_seconds_count{outcome=\"REPLAYED\"}": 8,
+          "auctra_bid_lock_wait_seconds_sum": 0.0066789589999996235,
+          "auctra_bid_lock_wait_seconds_count": 32,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 0.3859069579999996,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 32,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 5.687091750000002,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 149,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 0.32209508299999995,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 10,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 0.001476916000000074,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 1,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.22700000000000006,
+          "auctra_outbox_lag_seconds_count": 67,
+          "auctra_process_cpu_seconds_total": 0.857049,
+          "auctra_process_resident_memory_bytes": 412778496,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.012034047,
+          "auctra_db_pool_connections{state=\"total\"}": 10,
+          "auctra_db_pool_connections{state=\"idle\"}": 10,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        },
+        "4102": {
+          "auctra_bid_lock_wait_seconds_sum": 0,
+          "auctra_bid_lock_wait_seconds_count": 0,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 0.003,
+          "auctra_outbox_lag_seconds_count": 2,
+          "auctra_process_cpu_seconds_total": 0.298109,
+          "auctra_process_resident_memory_bytes": 379502592,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.012320767,
+          "auctra_db_pool_connections{state=\"total\"}": 1,
+          "auctra_db_pool_connections{state=\"idle\"}": 1,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        }
+      }
+    },
+    "D": {
+      "steady": {
+        "requests": 3648,
+        "byStatus": {
+          "201": 357,
+          "409": 225,
+          "422": 3066
+        },
+        "byCode": {
+          "OK": 357,
+          "BID_TOO_LOW": 3066,
+          "ALREADY_HIGHEST_BIDDER": 225
+        },
+        "shedRetryable": 0,
+        "serverErrors": 0,
+        "throughputRps": 159.3,
+        "latencyMs": {
+          "n": 3648,
+          "p50": 4.3,
+          "p95": 8.7,
+          "p99": 18.6,
+          "max": 45.7
+        }
+      },
+      "withHotAuction": {
+        "requests": 3649,
+        "byStatus": {
+          "201": 311,
+          "409": 200,
+          "422": 3138
+        },
+        "byCode": {
+          "BID_TOO_LOW": 3138,
+          "OK": 311,
+          "ALREADY_HIGHEST_BIDDER": 200
+        },
+        "shedRetryable": 0,
+        "serverErrors": 0,
+        "throughputRps": 159,
+        "latencyMs": {
+          "n": 3649,
+          "p50": 4.1,
+          "p95": 8.5,
+          "p99": 18.1,
+          "max": 41.3
+        },
+        "hot": {
+          "requests": 700,
+          "byStatus": {
+            "201": 35,
+            "422": 665
+          },
+          "byCode": {
+            "OK": 35,
+            "BID_TOO_LOW": 665
+          },
+          "shedRetryable": 0,
+          "serverErrors": 0,
+          "throughputRps": 30.5,
+          "latencyMs": {
+            "n": 700,
+            "p50": 66.6,
+            "p95": 90.7,
+            "p99": 94.5,
+            "max": 96.5
+          }
+        }
+      },
+      "invariantViolations": {},
+      "durationMs": 45999,
+      "processes": {
+        "72359": {
+          "peakRssMb": 497,
+          "avgCpu": 19,
+          "peakCpu": 51
+        },
+        "72361": {
+          "peakRssMb": 433,
+          "avgCpu": 20,
+          "peakCpu": 54
+        }
+      },
+      "serverMetrics": {
+        "4101": {
+          "auctra_bid_requests_total{outcome=\"ACCEPTED\"}": 401,
+          "auctra_bid_requests_total{outcome=\"BID_TOO_LOW\"}": 3899,
+          "auctra_bid_requests_total{outcome=\"REPLAYED\"}": 8,
+          "auctra_bid_requests_total{outcome=\"ALREADY_HIGHEST_BIDDER\"}": 212,
+          "auctra_bid_duration_seconds_sum{outcome=\"ACCEPTED\"}": 2.7389373359999936,
+          "auctra_bid_duration_seconds_count{outcome=\"ACCEPTED\"}": 401,
+          "auctra_bid_duration_seconds_sum{outcome=\"BID_TOO_LOW\"}": 0,
+          "auctra_bid_duration_seconds_count{outcome=\"BID_TOO_LOW\"}": 3899,
+          "auctra_bid_duration_seconds_sum{outcome=\"REPLAYED\"}": 0.2250039180000001,
+          "auctra_bid_duration_seconds_count{outcome=\"REPLAYED\"}": 8,
+          "auctra_bid_duration_seconds_sum{outcome=\"ALREADY_HIGHEST_BIDDER\"}": 0.591507116999953,
+          "auctra_bid_duration_seconds_count{outcome=\"ALREADY_HIGHEST_BIDDER\"}": 212,
+          "auctra_bid_lock_wait_seconds_sum": 0.14582611700000497,
+          "auctra_bid_lock_wait_seconds_count": 613,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 3.992769712999988,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 401,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 53.97523111299975,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 3918,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 0.32209508299999995,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"200\"}": 10,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 1.1328724189999604,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 213,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 2.079999999999957,
+          "auctra_outbox_lag_seconds_count": 1167,
+          "auctra_process_cpu_seconds_total": 9.886906,
+          "auctra_process_resident_memory_bytes": 446824448,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.012599295,
+          "auctra_db_pool_connections{state=\"total\"}": 10,
+          "auctra_db_pool_connections{state=\"idle\"}": 10,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        },
+        "4102": {
+          "auctra_bid_requests_total{outcome=\"ACCEPTED\"}": 334,
+          "auctra_bid_requests_total{outcome=\"BID_TOO_LOW\"}": 3100,
+          "auctra_bid_requests_total{outcome=\"ALREADY_HIGHEST_BIDDER\"}": 213,
+          "auctra_bid_duration_seconds_sum{outcome=\"ACCEPTED\"}": 1.4932267500000331,
+          "auctra_bid_duration_seconds_count{outcome=\"ACCEPTED\"}": 334,
+          "auctra_bid_duration_seconds_sum{outcome=\"BID_TOO_LOW\"}": 0,
+          "auctra_bid_duration_seconds_count{outcome=\"BID_TOO_LOW\"}": 3100,
+          "auctra_bid_duration_seconds_sum{outcome=\"ALREADY_HIGHEST_BIDDER\"}": 0.5954106649999885,
+          "auctra_bid_duration_seconds_count{outcome=\"ALREADY_HIGHEST_BIDDER\"}": 213,
+          "auctra_bid_lock_wait_seconds_sum": 0.13407792900002263,
+          "auctra_bid_lock_wait_seconds_count": 547,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 2.2591626970000402,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"201\"}": 334,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 11.843042589000019,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"422\"}": 3100,
+          "auctra_http_request_duration_seconds_sum{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 1.1191407449999708,
+          "auctra_http_request_duration_seconds_count{method=\"POST\",route=\"/api/auctions/:id/bids\",status=\"409\"}": 213,
+          "auctra_socket_connections": 0,
+          "auctra_outbox_lag_seconds_sum": 1.8449999999999749,
+          "auctra_outbox_lag_seconds_count": 960,
+          "auctra_process_cpu_seconds_total": 9.539132,
+          "auctra_process_resident_memory_bytes": 345718784,
+          "auctra_nodejs_eventloop_lag_p99_seconds": 0.012615679,
+          "auctra_db_pool_connections{state=\"total\"}": 6,
+          "auctra_db_pool_connections{state=\"idle\"}": 6,
+          "auctra_db_pool_connections{state=\"waiting\"}": 0
+        }
+      }
+    },
+    "E": {
+      "100": {
+        "joined": 100,
+        "joinWallMs": 177,
+        "events": 10,
+        "deliveries": 1000,
+        "latencyMs": {
+          "n": 1000,
+          "p50": 19.7,
+          "p95": 27.5,
+          "p99": 28.7,
+          "max": 28.9
+        },
+        "httpMs": {
+          "n": 10,
+          "p50": 16.3,
+          "p95": 24.6,
+          "p99": 24.6,
+          "max": 24.6
+        },
+        "clientStats": {
+          "connected": 100,
+          "joinFailed": 0,
+          "connectErrors": 0,
+          "gaps": 0,
+          "dupes": 0,
+          "syncs": 0
+        },
+        "expectedDeliveries": 1000,
+        "server": {
+          "peakRssMb": 430,
+          "avgCpu": 5,
+          "peakCpu": 9
+        }
+      },
+      "1000": {
+        "joined": 1000,
+        "joinWallMs": 371,
+        "events": 10,
+        "deliveries": 10000,
+        "latencyMs": {
+          "n": 10000,
+          "p50": 26.7,
+          "p95": 40.2,
+          "p99": 43.4,
+          "max": 44.7
+        },
+        "httpMs": {
+          "n": 10,
+          "p50": 13.4,
+          "p95": 19.3,
+          "p99": 19.3,
+          "max": 19.3
+        },
+        "clientStats": {
+          "connected": 1000,
+          "joinFailed": 0,
+          "connectErrors": 0,
+          "gaps": 0,
+          "dupes": 0,
+          "syncs": 0
+        },
+        "expectedDeliveries": 10000,
+        "server": {
+          "peakRssMb": 438,
+          "avgCpu": 12,
+          "peakCpu": 49
+        }
+      },
+      "5000": {
+        "joined": 5000,
+        "joinWallMs": 2181,
+        "events": 10,
+        "deliveries": 50000,
+        "latencyMs": {
+          "n": 50000,
+          "p50": 39.3,
+          "p95": 58.4,
+          "p99": 64.4,
+          "max": 68.1
+        },
+        "httpMs": {
+          "n": 10,
+          "p50": 11.1,
+          "p95": 22.2,
+          "p99": 22.2,
+          "max": 22.2
+        },
+        "clientStats": {
+          "connected": 5000,
+          "joinFailed": 0,
+          "connectErrors": 0,
+          "gaps": 0,
+          "dupes": 0,
+          "syncs": 0
+        },
+        "expectedDeliveries": 50000,
+        "server": {
+          "peakRssMb": 511,
+          "avgCpu": 22,
+          "peakCpu": 114
+        }
+      },
+      "10000": {
+        "joined": 10000,
+        "joinWallMs": 8806,
+        "events": 10,
+        "deliveries": 100000,
+        "latencyMs": {
+          "n": 100000,
+          "p50": 59,
+          "p95": 85.7,
+          "p99": 96.4,
+          "max": 100.3
+        },
+        "httpMs": {
+          "n": 10,
+          "p50": 21,
+          "p95": 37.9,
+          "p99": 37.9,
+          "max": 37.9
+        },
+        "clientStats": {
+          "connected": 10000,
+          "joinFailed": 0,
+          "connectErrors": 904,
+          "gaps": 0,
+          "dupes": 0,
+          "syncs": 0
+        },
+        "expectedDeliveries": 100000,
+        "server": {
+          "peakRssMb": 700,
+          "avgCpu": 25,
+          "peakCpu": 145
+        }
+      },
+      "error": "Error: bid failed: NETWORK:EADDRNOTAVAIL\n    at measureDelivery (file:///<repo>/backend/loadtest/run.mjs:341:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async Object.E (file:///<repo>/backend/loadtest/run.mjs:369:17)\n    at async file:///<repo>/backend/loadtest/run.mjs:577:7",
+      "durationMs": 172582,
+      "processes": {
+        "72359": {
+          "peakRssMb": 988,
+          "avgCpu": 10,
+          "peakCpu": 205
+        },
+        "72361": {
+          "peakRssMb": 317,
+          "avgCpu": 1,
+          "peakCpu": 33
+        }
+      },
+      "serverMetrics": {
+        "4101": {
+          "error": "TypeError: fetch failed"
+        },
+        "4102": {
+          "error": "TypeError: fetch failed"
+        }
+      }
+    },
+    "F": {
+      "error": "Error: bid failed: NETWORK:EADDRNOTAVAIL\n    at measureDelivery (file:///<repo>/backend/loadtest/run.mjs:341:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async Object.F (file:///<repo>/backend/loadtest/run.mjs:394:15)\n    at async file:///<repo>/backend/loadtest/run.mjs:577:7",
+      "durationMs": 120378,
+      "processes": {
+        "72359": {
+          "peakRssMb": 995,
+          "avgCpu": 5,
+          "peakCpu": 60
+        },
+        "72361": {
+          "peakRssMb": 143,
+          "avgCpu": 1,
+          "peakCpu": 34
+        }
+      },
+      "serverMetrics": {
+        "4101": {
+          "error": "TypeError: fetch failed"
+        },
+        "4102": {
+          "error": "TypeError: fetch failed"
+        }
+      }
+    },
+    "G": {
+      "error": "Error: Command failed: redis-cli -p 6390 shutdown nosave\nCould not connect to Redis at 127.0.0.1:6390: Can't assign requested address\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:925:11)\n    at execFileSync (node:child_process:961:15)\n    at Object.G (file:///<repo>/backend/loadtest/run.mjs:415:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///<repo>/backend/loadtest/run.mjs:577:7",
+      "durationMs": 120206,
+      "processes": {
+        "72359": {
+          "peakRssMb": 1022,
+          "avgCpu": 6,
+          "peakCpu": 210
+        },
+        "72361": {
+          "peakRssMb": 177,
+          "avgCpu": 1,
+          "peakCpu": 22
+        }
+      },
+      "serverMetrics": {
+        "4101": {
+          "error": "TypeError: fetch failed"
+        },
+        "4102": {
+          "error": "TypeError: fetch failed"
+        }
+      }
+    }
+  }
+}
