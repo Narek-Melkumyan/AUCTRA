@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-11-15T17:36:51.956Z",
+  "node": "v24.12.0",
+  "poolMax": 10,
+  "scenarios": {
+    "C": {
+      "requests": 1100,
+      "byStatus": {
+        "200": 5,
+        "201": 5,
+        "422": 1090
+      },
+      "byCode": {
+        "OK": 10,
+        "BID_TOO_LOW": 1090
+      },
+      "serverErrors": 0,
+      "throughputRps": 272.1,
+      "latencyMs": {
+        "n": 1100,
+        "p50": 572.4,
+        "p95": 2160.3,
+        "p99": 4031.4,
+        "max": 4036.7
+      },
+      "wallMs": 4043,
+      "acceptedBids": 5,
+      "burst": 1000,
+      "unexpected": [],
+      "invariantViolations": {},
+      "durationMs": 4189,
+      "processes": {
+        "71086": {
+          "peakRssMb": 474,
+          "avgCpu": 44,
+          "peakCpu": 137
+        }
+      }
+    }
+  }
+}

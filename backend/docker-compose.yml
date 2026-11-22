@@ -1,0 +1,39 @@
+# Local development services. Optional: a native PostgreSQL 17 / Redis 7 works too.
+#   docker compose up -d
+# Postgres is published on 127.0.0.1:5434 to avoid clashing with a native install on 5432;
+# set DATABASE_URL accordingly. Volumes are named, so `docker compose down` keeps data
+# (only `down -v` deletes it).
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: auctra
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in your shell or a .env next to this file}
+      POSTGRES_DB: auctra
+      TZ: UTC
+      PGTZ: UTC
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - auctra_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auctra -d auctra"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "no", "--save", ""]
+    ports:
+      - "127.0.0.1:6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  auctra_pg_data:

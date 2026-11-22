@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-11-15T17:36:57.057Z",
+  "node": "v24.12.0",
+  "poolMax": 10,
+  "scenarios": {
+    "C": {
+      "requests": 110,
+      "byStatus": {
+        "200": 4,
+        "201": 4,
+        "422": 102
+      },
+      "byCode": {
+        "OK": 8,
+        "BID_TOO_LOW": 102
+      },
+      "serverErrors": 0,
+      "throughputRps": 569,
+      "latencyMs": {
+        "n": 110,
+        "p50": 138.3,
+        "p95": 183.5,
+        "p99": 187.2,
+        "max": 188.6
+      },
+      "wallMs": 193,
+      "acceptedBids": 4,
+      "burst": 100,
+      "unexpected": [],
+      "invariantViolations": {},
+      "durationMs": 242,
+      "processes": {}
+    }
+  }
+}
