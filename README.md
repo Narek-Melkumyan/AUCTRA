@@ -455,7 +455,8 @@ npm run test:e2e             # integration tests (needs DATABASE_URL_TEST ending
 cd frontend && npm run typecheck && npm run lint && npm test
 ```
 
-Current status: backend 56 unit and 181 integration tests passing; frontend 73 tests passing; live Cloudflare R2 smoke test 23/23.
+Current status: 314 automated tests passing — backend 56 unit and 185 integration, frontend 73 —
+plus the live Cloudflare R2 smoke test (23/23).
 
 ## API overview
 
